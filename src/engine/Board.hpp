@@ -4,6 +4,7 @@
 
 class Board {
     public:
+    // get and set pieces
     inline U64 wpawns() const{return bitboards[0];}
 	inline U64 wknights() const{return bitboards[1];}
 	inline U64 wbishops() const{return bitboards[2];}
@@ -29,18 +30,48 @@ class Board {
 	inline void set_bqueens(U64 new_board) {bitboards[10] = new_board;}
 	inline void set_bking(U64 new_board) {bitboards[11] = new_board;}
 
+    // move generation
     std::vector<Board> generate_wmoves();
     std::vector<Board> generate_bmoves();
 
+    // get and set board info
+    inline bool wking_in_check() {return (b_info >> 31) & 0b1;};
+    inline bool bking_in_check() {return (b_info >> 30) & 0b1;};
+    inline void check_wking() {b_info |= static_cast<uint32_t>(1 << 31);};
+    inline void uncheck_wking() {b_info &= 0b01111111111111111111111111111111;};
+    inline void check_bking() {b_info |= static_cast<uint32_t>(1 << 30);};
+    inline void uncheck_bking() {b_info &= 0b10111111111111111111111111111111;};
 
-    /**
-     * at end of every turn, this function runs to update the flags for checks
-     */
+    inline bool can_wlcastle() {return !((b_info >> 29) & 0b1);};
+    inline bool can_wrcastle() {return !((b_info >> 28) & 0b1);};
+    inline bool can_blcastle() {return !((b_info >> 27) & 0b1);};
+    inline bool can_brcastle() {return !((b_info >> 26) & 0b1);};
+    inline void disable_wlcastle() {b_info |= 0b00100000000000000000000000000000;};
+    inline void disable_wrcastle() {b_info |= 0b00010000000000000000000000000000;};
+    inline void disable_blcastle() {b_info |= 0b00001000000000000000000000000000;};
+    inline void disable_brcastle() {b_info |= 0b00000100000000000000000000000000;};
+    inline U64 pm_op_f() {return FILES[(b_info >> 9) & 0b111];};
+    inline U64 pm_op_r() {return RANKS[(b_info >> 6) & 0b111];};
+    inline U64 pm_np_f() {return FILES[(b_info >> 3) & 0b111];};
+    inline U64 pm_np_r() {return RANKS[b_info & 0b111];};
+    inline void set_pm_op_f(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111000111111111) | static_cast<uint32_t>(new_move << 9);};
+    inline void set_pm_op_r(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111000111111) | static_cast<uint32_t>(new_move << 6);};
+    inline void set_pm_np_f(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111111000111) | static_cast<uint32_t>(new_move << 3);};
+    inline void set_pm_np_r(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111111111000) | new_move;};
+
+    // /**
+    //  * at end of every turn, this function runs to update the flags for checks
+    //  */
     void update_check();
 
-    // DEBUGGING:
+    // // DEBUGGING:
     void print_board();
 
+    // friends for easier implementation
+    friend Board do_move(U64 origin, U64 dest, int piece_type, Board& old_board);
+    friend Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board);
+    friend void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
+    friend void white_pawn_moves(Board& board, std::vector<Board>& moves);
     private:
     /**
      * bitboard representation of the chessboard
@@ -59,19 +90,7 @@ class Board {
      */
     std::array<U64, 12> bitboards;
     /**
-     * last move original position
-     * - first 3 bits -> file
-     * - last 3 bits -> rank
-     */
-    unsigned char lm_op;
-    /**
-     * last move new position
-     * - first 3 bits -> file
-     * - last 3 bits -> rank
-     */
-    unsigned char lm_np;
-    /**
-     * miscellaneous information about the board
+     * General information
      * 0 - white king in check
      * 1 - black king in check
      * 2 - white left castle
@@ -79,6 +98,11 @@ class Board {
      * 4 - black left castle
      * 5 - black right castle
      * 
+     * Previous move
+     * 20-22 - file of original position
+     * 23-25 - rank of original position
+     * 26-28 - file of new position
+     * 29-31 - rank of new position
      */
-    unsigned char binfo;
+    uint32_t b_info;
 };

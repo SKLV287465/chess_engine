@@ -1,3 +1,6 @@
+#ifndef CONSTANTS_HPP
+#define CONSTANTS_HPP
+
 #include <cstdint>
 #include <array>
 
@@ -18,6 +21,9 @@ enum pieces {
     black_king,
     empty
 };
+
+const uint8_t WHITE = 0;
+const uint8_t BLACK = 1;
 
 const uint64_t RANK_1 = 0x00000000000000FF;
 const uint64_t RANK_2 = 0x000000000000FF00;
@@ -76,3 +82,5 @@ const std::array<U64, 12> STARTING_POSITIONS = {
     0x0800000000000000ULL,  // Black Queen (on d8)
     0x1000000000000000ULL   // Black King (on e8)
 };
+
+#endif

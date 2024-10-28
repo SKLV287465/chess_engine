@@ -1,7 +1,7 @@
-PWD /Users/sklave/personal/chess/journal
+PWD /Users/sklave/personal/chess_engine/journal
 INPUT /usr/local/Cellar/texlive/20240312_1/share/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/Cellar/texlive/20240312_1/share/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/sklave/personal/chess/journal/journal.tex
+INPUT /Users/sklave/personal/chess_engine/journal/journal.tex
 OUTPUT journal.log
 INPUT /usr/local/Cellar/texlive/20240312_1/share/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/Cellar/texlive/20240312_1/share/texmf-dist/tex/latex/base/article.cls

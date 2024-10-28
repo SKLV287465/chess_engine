@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1729835094.86437 "/Users/sklave/personal/chess/journal/journal.tex" "journal.pdf" "journal" 1729835095.76248 0
-  "/Users/sklave/personal/chess/journal/journal.tex" 1729835093.6784 1894 910e6a0f802aa61f263831a5c3bf0cbc ""
+["pdflatex"] 1730075491.77881 "/Users/sklave/personal/chess_engine/journal/journal.tex" "journal.pdf" "journal" 1730075492.72767 0
+  "/Users/sklave/personal/chess_engine/journal/journal.tex" 1730075491.48265 1928 678482bf7d69c123db69f972137c766e ""
   "/usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/map/fontname/texfonts.map" 1710106625 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1710106625 5472554 f7861620179a71a79d4bd86251f559d0 ""
   "/usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1710106625 1004 54797486969f23fa377b128694d548df ""
@@ -51,8 +51,8 @@
   "/usr/local/Cellar/texlive/20240312_1/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1710106625 678 4792914a8f45be57bb98413425e4c7af ""
   "/usr/local/Cellar/texlive/20240312_1/share/texmf-dist/web2c/texmf.cnf" 1725851520.94178 41652 e14926ab86fde7902cad99d9eeaa5ca5 ""
   "/usr/local/Cellar/texlive/20240312_1/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1710106625 8221728 6ad968c4cf6ec94c671719186a970bed ""
-  "journal.aux" 1729835095.67052 32 c81c40425fbb5e93b90fba65da0b5e61 "pdflatex"
-  "journal.tex" 1729835093.6784 1894 910e6a0f802aa61f263831a5c3bf0cbc ""
+  "journal.aux" 1730075492.63005 32 c81c40425fbb5e93b90fba65da0b5e61 "pdflatex"
+  "journal.tex" 1730075491.48265 1928 678482bf7d69c123db69f972137c766e ""
   (generated)
   "journal.aux"
   "journal.log"

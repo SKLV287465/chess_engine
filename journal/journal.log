@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.7.17)  25 OCT 2024 16:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.7.17)  28 OCT 2024 11:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/sklave/personal/chess/journal/journal.tex
-(/Users/sklave/personal/chess/journal/journal.tex
+**/Users/sklave/personal/chess_engine/journal/journal.tex
+(/Users/sklave/personal/chess_engine/journal/journal.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/local/Cellar/texlive/20240312_1/share/texmf-dist/tex/latex/base/article.cls
@@ -175,6 +175,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--15
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--15
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--15
+
+ []
+
 [2] [3] [4] (./journal.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -183,14 +208,14 @@ L3 programming layer <2024-02-20>
  ) 
 Here is how much of TeX's memory you used:
  2574 strings out of 474116
- 42530 string characters out of 5734122
+ 42551 string characters out of 5734122
  1930187 words of memory out of 5000000
  24921 multiletter control sequences out of 15000+600000
  563789 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,6n,69p,678b,199s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 61i,6n,69p,689b,199s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/Cellar/texlive/20240312_1/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on journal.pdf (4 pages, 64673 bytes).
+Output written on journal.pdf (4 pages, 64810 bytes).
 PDF statistics:
  42 PDF objects out of 1000 (max. 8388607)
  25 compressed objects within 1 object stream
