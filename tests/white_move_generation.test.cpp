@@ -1,27 +1,40 @@
 #include <catch2/catch_test_macros.hpp>
 #include "../src/engine/Board.hpp"
 #include <constants.hpp>
-
-TEST_CASE("pawns") {
-
+#include <iostream> 
+TEST_CASE("general tests") {
+    auto board = Board{};
+    board.set_bitboards(STARTING_POSITIONS);
+    // check that there are 20 moves generated initially.
+    std::cout << board.generate_wmoves().size() << std::endl;
+    CHECK(board.generate_wmoves().size() == 20);
 }
+// TEST_CASE("pawns") {
+//     // single push
+//     // double push
+//     // single push promotions and attack
 
-TEST_CASE("knights") {
+//     // attack out of square
+    
+//     // en passant (can test)
+// }
 
-}
+// TEST_CASE("knights") {
+//     // no spillover
+// }
 
-TEST_CASE("bishops") {
+// TEST_CASE("bishops") {
 
-}
+// }
 
-TEST_CASE("rooks") {
+// TEST_CASE("rooks") {
 
-}
+// }
 
-TEST_CASE("kings") {
+// TEST_CASE("kings") {
 
-}
+// }
 
-TEST_CASE("queens") {
+// TEST_CASE("queens") {
 
-}
+// }

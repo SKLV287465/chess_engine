@@ -86,7 +86,10 @@ add_executable(boardinfo_test_exe tests/boardinfo.test.cpp)
 target_link_libraries(boardinfo_test_exe PRIVATE Catch2::Catch2WithMain)
 target_link_libraries(boardinfo_test_exe PUBLIC Include)
 add_test(boardinfo_test boardinfo_test_exe)
-
+add_executable(white_move_generation_test_exe tests/white_move_generation.test.cpp src/engine/move_generation.cpp)
+target_link_libraries(white_move_generation_test_exe PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(white_move_generation_test_exe PUBLIC Include)
+add_test(white_move_generation_test_exe white_move_generation_test_exe)
 
 
 # # adding benchmark file

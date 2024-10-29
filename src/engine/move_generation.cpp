@@ -1,6 +1,9 @@
 #include "Board.hpp"
 #include <vector>
 #include <constants.hpp>
+
+// debug useage
+#include <iostream>
 // *** Assumes all flags are correctly updated ***
 
 void set_pm_positions(U64 origin, U64 dest, Board& nb) {
@@ -91,14 +94,9 @@ void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
     }
 }
 
-void white_pawn_moves(Board& board, std::vector<Board>& moves) {
-    U64 double_push = (board.wpawns() << 16) & RANK_4;
-    while (double_push) {
-        U64 dest = double_push & -double_push;
-        moves.push_back(do_move(dest >> 16, dest, white_pawn, board));
-        double_push ^= dest;
-    }
-    U64 single_push = board.wpawns() << 8;
+void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 boccupied) {
+    U64 single_push = board.wpawns() << 8 & ~occupied;
+    U64 double_push = (single_push << 8) & RANK_4 & ~occupied;
     while (single_push) {
         U64 dest = single_push & -single_push;
         if (dest & RANK_8) {
@@ -114,9 +112,14 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves) {
         }
         single_push ^= dest;
     }
-    U64 left_attack = (board.wpawns() << 9) & ~ FILE_H;
+    while (double_push) {
+        U64 dest = double_push & -double_push;
+        moves.push_back(do_move(dest >> 16, dest, white_pawn, board));
+        double_push ^= dest;
+    }
+    U64 left_attack = (board.wpawns() << 9) & ~ FILE_H & boccupied;
     while (left_attack) {
-        U64 dest = single_push & -single_push;
+        U64 dest = left_attack & -left_attack;
         if (dest & RANK_8) {
             auto queen_promo = board;
             queen_promo.bitboards[0] ^= dest >> 9;
@@ -130,9 +133,9 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves) {
         }
         left_attack ^= dest;
     }
-    U64 right_attack = (board.wpawns() << 7) & ~ FILE_H;
+    U64 right_attack = (board.wpawns() << 7) & ~ FILE_H & boccupied;
     while (right_attack) {
-        U64 dest = single_push & -single_push;
+        U64 dest = right_attack & -right_attack;
         if (dest & RANK_8) {
             auto queen_promo = board;
             queen_promo.bitboards[0] ^= dest >> 7;
@@ -191,56 +194,56 @@ U64 get_sliding_moves(U64 ptr, int direction, U64 froccupied, U64 opoccupied) {
     switch (direction)
     {
     case NW:
-        while ((ptr << 9) & ~FILE_H) {
+        while ((ptr <<= 9) & ~FILE_H) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case W:
-        while ((ptr << 1) & ~FILE_H) {
+        while ((ptr <<= 1) & ~FILE_H) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case SW:
-        while ((ptr >> 7) & ~FILE_H) {
+        while ((ptr >>= 7) & ~FILE_H) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case NE:
-        while ((ptr << 7) & ~FILE_A) {
+        while ((ptr <<= 7) & ~FILE_A) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case E:
-        while ((ptr >> 1) & ~FILE_A) {
+        while ((ptr >>= 1) & ~FILE_A) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case SE:
-        while ((ptr >> 9) & ~FILE_A) {
+        while ((ptr >>= 9) & ~FILE_A) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case N:
-        while ((ptr << 8)) {
+        while ((ptr <<= 8)) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case S:
-        while ((ptr >> 8)) {
+        while ((ptr >>= 8)) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
@@ -268,7 +271,7 @@ std::vector<Board> Board::generate_wmoves() {
     occupied = boccupied | woccupied;
     auto moves = std::vector<Board>{};
     white_special_moves(*this, moves, occupied);
-    white_pawn_moves(*this, moves);
+    white_pawn_moves(*this, moves, occupied, boccupied);
     // knight
     U64 knights = wknights();
     while(knights) {
@@ -292,11 +295,12 @@ std::vector<Board> Board::generate_wmoves() {
     destinations |= (king & ~FILE_H) << 9;  // Northeast
     destinations |= (king & ~FILE_A) >> 9;  // Southwest
     destinations |= (king & ~FILE_H) >> 7;  // Southeast
+    destinations &= ~woccupied;
     process_moves(*this, moves, destinations, king, white_king, boccupied);
     // bishop
     U64 bishops = wbishops();
     while (bishops) {
-        U64 bishop = bishops & -bishop;
+        U64 bishop = bishops & -bishops;
         U64 destinations = 0;
         // NW
         destinations |= get_sliding_moves(bishop, NW, woccupied, boccupied);
@@ -336,6 +340,185 @@ std::vector<Board> Board::generate_wmoves() {
     }
 }
 
+inline bool blcastle(Board& board, U64 occupied) {
+    if (board.bking_in_check() || !board.can_blcastle() || occupied & RANK_8 & (FILE_B | FILE_C | FILE_D)) return false;
+    return true;
+}
+
+inline bool brcastle(Board& board, U64 occupied) {
+    if (board.bking_in_check() || !board.can_brcastle() || occupied & RANK_8 & (FILE_F | FILE_G)) return false;
+    return true;
+}
+
+void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) {
+    // implement castling
+    if (blcastle(board, occupied)) {
+        auto castlel = do_move(RANK_8 & FILE_E, RANK_8 & FILE_C, black_king, board);
+        castlel.bitboards[black_rook] ^= (RANK_8 & (FILE_A | FILE_D)); 
+        moves.push_back(castlel);
+    }
+    if (brcastle(board, occupied)) {
+        auto castler = do_move(RANK_8 & FILE_E, RANK_8 & FILE_G, black_king, board);
+        castler.bitboards[black_rook] ^= (RANK_8 & (FILE_H | FILE_F));
+        moves.push_back(castler);
+    }
+    // implement en passant
+    if (board.pm_op_r() == RANK_2 && board.pm_np_r() == RANK_4) {
+        // right attack
+        if (board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H) {
+            auto renpassant = board;
+            renpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H) | (board.pm_np_f() & RANK_3));
+            renpassant.bitboards[0] ^= (board.pm_np_f() & board.pm_np_r());
+            set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H), (board.pm_np_f() & RANK_3), renpassant);
+            moves.push_back(renpassant);
+        }
+        // left attack
+        if (board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A) {
+            auto lenpassant = board;
+            lenpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A) | (board.pm_np_f() & RANK_3));
+            lenpassant.bitboards[0] ^= (board.pm_np_f() & board.pm_np_r());
+            set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A), (board.pm_np_f() & RANK_3), lenpassant);
+            moves.push_back(lenpassant);
+        }
+    }
+}
+
+void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 woccupied) {
+    U64 single_push = board.bpawns() >> 8 & ~occupied;
+    U64 double_push = (single_push >> 8) & RANK_5 & ~occupied;
+    while (single_push) {
+        U64 dest = single_push & -single_push;
+        if (dest & RANK_1) {
+            auto queen_promo = board;
+            queen_promo.bitboards[6] ^= dest << 8;
+            auto knight_promo = queen_promo;
+            queen_promo.bitboards[10] |= dest;
+            knight_promo.bitboards[7] |= dest;
+            moves.push_back(queen_promo);
+            moves.push_back(knight_promo);
+        } else {
+            moves.push_back(do_move(dest << 8, dest, black_pawn, board));
+        }
+        single_push ^= dest;
+    }
+    while (double_push) {
+        U64 dest = double_push & -double_push;
+        moves.push_back(do_move(dest << 16, dest, black_pawn, board));
+        double_push ^= dest;
+    }
+    U64 left_attack = (board.bpawns() >> 9) & ~ FILE_H & woccupied;
+    while (left_attack) {
+        U64 dest = left_attack & -left_attack;
+        if (dest & RANK_1) {
+            auto queen_promo = board;
+            queen_promo.bitboards[6] ^= dest << 9;
+            auto knight_promo = queen_promo;
+            queen_promo.bitboards[10] |= dest;
+            knight_promo.bitboards[7] |= dest;
+            moves.push_back(queen_promo);
+            moves.push_back(knight_promo);
+        } else {
+            moves.push_back(do_attack(dest << 9, dest, black_pawn, board));
+        }
+        left_attack ^= dest;
+    }
+    U64 right_attack = (board.bpawns() >> 7) & ~ FILE_H & woccupied;
+    while (right_attack) {
+        U64 dest = right_attack & -right_attack;
+        if (dest & RANK_1) {
+            auto queen_promo = board;
+            queen_promo.bitboards[6] ^= dest << 7;
+            auto knight_promo = queen_promo;
+            queen_promo.bitboards[10] |= dest;
+            knight_promo.bitboards[7] |= dest;
+            moves.push_back(queen_promo);
+            moves.push_back(knight_promo);
+        } else {
+            moves.push_back(do_attack(dest << 7, dest, black_pawn, board));
+        }
+        right_attack ^= dest;
+    }
+}
+
 std::vector<Board> Board::generate_bmoves() {
-    
+    // preprocessing
+    U64 woccupied = 0;
+    U64 boccupied = 0;
+    U64 occupied = 0;
+    for (int i = 0; i < 6; ++i) {
+        woccupied |= bitboards[i];
+    }
+    for (int i = 6; i < 12; ++i) {
+        boccupied |= bitboards[i];
+    }
+    occupied = boccupied | woccupied;
+    auto moves = std::vector<Board>{};
+    black_special_moves(*this, moves, occupied);
+    black_pawn_moves(*this, moves, occupied, woccupied);
+    // knight
+    U64 knights = bknights();
+    while(knights) {
+        U64 knight = knights & -knights;
+        U64 l1 = (knight >> 1) & ~FILE_H;
+        U64 l2 = (knight >> 2) & ~(FILE_H | (FILE_H >> 1));
+        U64 r1 = (knight << 1) & ~FILE_A;
+        U64 r2 = (knight << 2) & ~(FILE_A | (FILE_A << 1));
+        U64 destinations = ((l1 << 16) | (l1 >> 16) | (r1 << 16) | (r1 >> 16) | (l2 <<  8) | (l2 >>  8) | (r2 <<  8) | (r2 >>  8)) & ~boccupied;
+        process_moves(*this, moves, destinations, knight, black_knight, woccupied);
+        knights ^= knight;
+    }
+    // king
+    U64 king = bking();
+    U64 destinations = 0;
+    destinations |= (king & ~FILE_A) >> 1;
+    destinations |= (king & ~FILE_H) << 1;
+    destinations |= king << 8;
+    destinations |= king >> 8;
+    destinations |= (king & ~FILE_A) << 7;  // Northwest
+    destinations |= (king & ~FILE_H) << 9;  // Northeast
+    destinations |= (king & ~FILE_A) >> 9;  // Southwest
+    destinations |= (king & ~FILE_H) >> 7;  // Southeast
+    destinations &= ~boccupied;
+    process_moves(*this, moves, destinations, king, black_king, woccupied);
+    // bishop
+    U64 bishops = bbishops();
+    while (bishops) {
+        U64 bishop = bishops & -bishops;
+        U64 destinations = 0;
+        // NW
+        destinations |= get_sliding_moves(bishop, NW, boccupied, woccupied);
+        destinations |= get_sliding_moves(bishop, NE, boccupied, woccupied);
+        destinations |= get_sliding_moves(bishop, SW, boccupied, woccupied);
+        destinations |= get_sliding_moves(bishop, SE, boccupied, woccupied);
+        process_moves(*this, moves, destinations, bishop, black_bishop, woccupied);
+        bishops ^= bishop;
+    }
+    // rook
+    U64 rooks = brooks();
+    while (rooks) {
+        U64 rook = rooks & -rooks;
+        U64 destinations = 0;
+        destinations |= get_sliding_moves(rook, N, boccupied, woccupied);
+        destinations |= get_sliding_moves(rook, E, boccupied, woccupied);
+        destinations |= get_sliding_moves(rook, W, boccupied, woccupied);
+        destinations |= get_sliding_moves(rook, S, boccupied, woccupied);
+        process_moves(*this, moves, destinations, rook, black_rook, woccupied);
+        rooks ^= rook;
+    }
+    // queen
+    U64 queens = bqueens();
+    while (queens) {
+        U64 queen = queens & -queens;
+        U64 destinations = 0;
+        destinations |= get_sliding_moves(queen, N, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, E, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, W, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, S, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, NE, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, NW, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, SE, boccupied, woccupied);
+        destinations |= get_sliding_moves(queen, SW, boccupied, woccupied);
+        process_moves(*this, moves, destinations, queen, black_queen, woccupied);
+        queens ^= queen;
+    }
 }

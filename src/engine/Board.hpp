@@ -66,12 +66,16 @@ class Board {
 
     // // DEBUGGING:
     void print_board();
-
+    void set_bitboards(std::array<U64, 12> new_board) {
+        bitboards = new_board;
+    }
     // friends for easier implementation
     friend Board do_move(U64 origin, U64 dest, int piece_type, Board& old_board);
     friend Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board);
     friend void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
-    friend void white_pawn_moves(Board& board, std::vector<Board>& moves);
+    friend void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 boccupied);
+    friend void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
+    friend void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 woccupied);
     private:
     /**
      * bitboard representation of the chessboard
