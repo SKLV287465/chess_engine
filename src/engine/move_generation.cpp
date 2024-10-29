@@ -254,7 +254,6 @@ U64 get_sliding_moves(U64 ptr, int direction, U64 froccupied, U64 opoccupied) {
 /**
  * generate all pseudo-legal board states after a white move
  */
-// TODO TODO -> set previous move for each move made
 std::vector<Board> Board::generate_wmoves() {
     // preprocessing
     U64 woccupied = 0;
