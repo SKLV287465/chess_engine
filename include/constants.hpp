@@ -22,6 +22,17 @@ enum pieces {
     empty
 };
 
+enum directions {
+    NW,
+    W,
+    SW,
+    NE,
+    E,
+    SE,
+    N,
+    S
+};
+
 const uint8_t WHITE = 0;
 const uint8_t BLACK = 1;
 
