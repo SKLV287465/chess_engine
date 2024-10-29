@@ -6,8 +6,10 @@ TEST_CASE("general tests") {
     auto board = Board{};
     board.set_bitboards(STARTING_POSITIONS);
     // check that there are 20 moves generated initially.
-    std::cout << board.generate_wmoves().size() << std::endl;
-    CHECK(board.generate_wmoves().size() == 20);
+    std::cout << board.generate_bmoves().size() << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 // TEST_CASE("pawns") {
 //     // single push

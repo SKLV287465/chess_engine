@@ -58,7 +58,9 @@ class Board {
     inline void set_pm_op_r(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111000111111) | static_cast<uint32_t>(new_move << 6);};
     inline void set_pm_np_f(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111111000111) | static_cast<uint32_t>(new_move << 3);};
     inline void set_pm_np_r(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111111111000) | new_move;};
-
+    inline bool get_turn() {return (b_info >> 25) & 0b1;};
+    inline bool white_turn() {b_info &= 0b11111101111111111111111111111111;};
+    inline bool black_turn() {b_info |= 0b00000010000000000000000000000000;};
     // /**
     //  * at end of every turn, this function runs to update the flags for checks
     //  */
@@ -101,7 +103,8 @@ class Board {
      * 3 - white right castle
      * 4 - black left castle
      * 5 - black right castle
-     * 
+     * 6 - turn (0 for white, 1 for black)
+     *
      * Previous move
      * 20-22 - file of original position
      * 23-25 - rank of original position

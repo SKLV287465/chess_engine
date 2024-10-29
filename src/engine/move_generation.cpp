@@ -338,6 +338,7 @@ std::vector<Board> Board::generate_wmoves() {
         process_moves(*this, moves, destinations, queen, white_queen, boccupied);
         queens ^= queen;
     }
+    return moves;
 }
 
 inline bool blcastle(Board& board, U64 occupied) {
@@ -521,4 +522,5 @@ std::vector<Board> Board::generate_bmoves() {
         process_moves(*this, moves, destinations, queen, black_queen, woccupied);
         queens ^= queen;
     }
+    return moves;
 }
