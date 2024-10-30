@@ -78,6 +78,7 @@ class Board {
     friend void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 boccupied);
     friend void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
     friend void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 woccupied);
+    friend int evaluate_advantage(Board& board);
     private:
     /**
      * bitboard representation of the chessboard
