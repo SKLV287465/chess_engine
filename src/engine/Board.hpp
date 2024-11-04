@@ -97,6 +97,7 @@ class Board {
             std::cout << '\n';
         }
         std::cout << '\n';
+        std::cout << get_turn() << std::endl;
     }
     void set_bitboards(std::array<U64, 12> new_board) {
         bitboards = new_board;

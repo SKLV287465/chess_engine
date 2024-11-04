@@ -10,7 +10,6 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 	std::string token, fen;
 
 	is >> token;
-
 	if (token == "startpos")
 	{
 		delete board;
@@ -40,15 +39,20 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 			char three = token[2];
 			char four = token[3];
 			std::vector<Board> moves;
+			// potential error here if board goes out of scope
 			if (board->get_turn()) {
 				moves = board->generate_bmoves();
 			} else {
 				moves = board->generate_wmoves();
 			}
+			std::cout << one << two << three << four << std::endl;
 			for (auto &b : moves) {
-				if (FILENTC.at(b.pm_np_f()) == one && RANKNTC.at(b.pm_np_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
+				// std::cout << one << two << three << four << " " << FILENTC.at(b.pm_op_f()) << RANKNTC.at(b.pm_op_r()) << FILENTC.at(b.pm_np_f()) << RANKNTC.at(b.pm_np_r()) << " " << board->get_turn() << std::endl;
+				// std::cout << (FILENTC.at(b.pm_op_f()) == one) << (RANKNTC.at(b.pm_op_r()) == two) << (FILENTC.at(b.pm_np_f()) == three) << (RANKNTC.at(b.pm_np_r()) == four) << std::endl;
+				if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
 					board = &b;
-					return;
+					std::cout << "-found-"<< std::endl << std::endl;
+					break;
 				}
 			}
 		}
@@ -61,6 +65,7 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 void LiChessUCI::search() {
 	*board = (board->MCTS_next_move());
 	board->update_check();
+	board->print_board();
 	std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r()) << std::endl;
 }
 
