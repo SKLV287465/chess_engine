@@ -5,6 +5,7 @@
 #include <vector>
 #include <constants.hpp>
 #include <string>
+#include <iostream>
 
 class Board {
     public:
@@ -73,7 +74,30 @@ class Board {
     void update_check();
 
     // // DEBUGGING:
-    void print_board();
+    void print_board() {
+        const char piece_symbols[12] = {'P', 'N', 'B', 'R', 'Q', 'K', 'p', 'n', 'b', 'r', 'q', 'k'};
+        char board[64];
+        std::fill(std::begin(board), std::end(board), '.'); // Initialize an empty board with dots
+
+        // Fill the board array based on bitboards
+        for (int piece = 0; piece < 12; ++piece) {
+            U64 bitboard = bitboards[piece];
+            for (int square = 0; square < 64; ++square) {
+                if (bitboard & (1ULL << square)) {
+                    board[square] = piece_symbols[piece];
+                }
+            }
+        }
+
+        // Print the board in a readable format
+        for (int rank = 7; rank >= 0; --rank) {
+            for (int file = 0; file < 8; ++file) {
+                std::cout << board[rank * 8 + file] << ' ';
+            }
+            std::cout << '\n';
+        }
+        std::cout << '\n';
+    }
     void set_bitboards(std::array<U64, 12> new_board) {
         bitboards = new_board;
     }

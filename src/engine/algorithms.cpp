@@ -7,12 +7,14 @@
 #include <vector>
 #include <random>
 #include "algorithms.hpp"
-#include <iostream>
 double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
     if (depth == 0) return board.evaluate_advantage(board); // or game is over
     double max = std::numeric_limits<double>::min();
     if (board.get_turn()) {
         // black
+        if (!board.wking()) {
+            return std::numeric_limits<double>::max();
+        }
         for (auto move : board.generate_bmoves()) {
             double score = algorithms::negamax(move, -beta, -alpha, depth - 1);
             max = (score > max) ? score : max;
@@ -22,6 +24,9 @@ double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
             }
         }
     } else {
+        if (!board.bking()) {
+            return std::numeric_limits<double>::max();
+        }
         for (auto move : board.generate_wmoves()) {
             double score = algorithms::negamax(move, -beta, -alpha, depth - 1);
             max = (score > max) ? score : max;
@@ -60,6 +65,9 @@ MCnode* MCnode::expansion() {
         auto node = new MCnode(this, move);
         _children.push_back(node);
     }
+    if (_children.size() == 0) {
+        return this;
+    }
     std::random_device rd; // Seed for the random number engine
     std::mt19937 gen(rd()); // Mersenne Twister engine for generating random numbers
     std::uniform_int_distribution<> dis(0, _children.size() - 1); // Define range
@@ -70,7 +78,11 @@ double MCnode::simulation() {
     return algorithms::negamax(_gamestate, std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), 3);
 }
 void MCnode::backpropagation(double score) {
-    _w += score;
+    if (score > 0) {
+        ++_w;
+    } else {
+        --_w;
+    }
     ++_n;
     if (_parent) {
         ++_N;
