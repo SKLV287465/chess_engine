@@ -96,14 +96,25 @@ const std::array<U64, 12> STARTING_POSITIONS = {
 };
 
 const std::unordered_map<U64, char> FILENTC = {
-    {0, 'a'},
-    {1, 'b'},
-    {2, 'c'},
-    {3, 'd'},
-    {4, 'e'},
-    {5, 'f'},
-    {6, 'g'},
-    {7, 'h'}
+    {FILE_A, 'a'},
+    {FILE_B, 'b'},
+    {FILE_C, 'c'},
+    {FILE_D, 'd'},
+    {FILE_E, 'e'},
+    {FILE_F, 'f'},
+    {FILE_G, 'g'},
+    {FILE_H, 'h'}
+};
+
+const std::unordered_map<U64, char> RANKNTC = {
+    {RANK_1, '1'},
+    {RANK_2, '2'},
+    {RANK_3, '3'},
+    {RANK_4, '4'},
+    {RANK_5, '5'},
+    {RANK_6, '6'},
+    {RANK_7, '7'},
+    {RANK_8, '8'}
 };
 
 const int NEGAMAX_DEPTH = 6;

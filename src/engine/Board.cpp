@@ -70,5 +70,5 @@ Board Board::negamax_next_move() {
 
 // incomplete
 Board Board::MCTS_next_move() {
-    return *this;
+    return algorithms::MCTS(*this, 300);
 }

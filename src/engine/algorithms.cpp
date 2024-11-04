@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include "algorithms.hpp"
+#include <iostream>
 double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
     if (depth == 0) return board.evaluate_advantage(board); // or game is over
     double max = std::numeric_limits<double>::min();
@@ -33,31 +34,33 @@ double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
     return max;
 }
 
-MCnode MCnode::selection() {
-    if (_children.size()) {
-        return *this;
+MCnode* MCnode::selection() {
+    if (!_children.size()) {
+        std::cout << "size" << std::endl;
+        return this;
     }
     double maxuct = std::numeric_limits<double>::min();
     int maxindex = 0;
     for (auto i = 0; i < _children.size(); ++i) {
-        if (maxuct < _children[i].UCT()) {
+        if (maxuct < _children[i]->UCT()) {
             maxindex = i;
-            maxuct = _children[i].UCT();
+            maxuct = _children[i]->UCT();
         }
     }
-    return _children[maxindex].selection();
+    return _children[maxindex]->selection();
 } // compute UCT
-MCnode MCnode::expansion() {
+MCnode* MCnode::expansion() {
     std::vector<Board> possible_moves;
-    if (_gamestate->get_turn()) {
-        possible_moves = _gamestate->generate_bmoves();
+    if (_gamestate.get_turn()) {
+        possible_moves = _gamestate.generate_bmoves();
     } else {
-        possible_moves = _gamestate->generate_wmoves();
+        possible_moves = _gamestate.generate_wmoves();
     }
 
     for (auto &move : possible_moves) {
-        auto node = MCnode(this, &move);
+        auto node = new MCnode(this, move);
         _children.push_back(node);
+        std::cout << "push back done" << std::endl;
     }
     std::random_device rd; // Seed for the random number engine
     std::mt19937 gen(rd()); // Mersenne Twister engine for generating random numbers
@@ -66,24 +69,25 @@ MCnode MCnode::expansion() {
     return _children[dis(gen)];
 }
 double MCnode::simulation() {
-    return algorithms::negamax(*_gamestate, std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), 3);
+    return algorithms::negamax(_gamestate, std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), 3);
 }
 void MCnode::backpropagation(double score) {
     _w += score;
     ++_n;
     if (_parent) {
         ++_N;
-        _parent->backpropagation(score);
+        (*_parent)->backpropagation(score);
     }
 }
 
-Board algorithms::MCTS(Board& gamestate, int iterations) {
-    auto root = MCnode(nullptr, &gamestate);
+Board algorithms::MCTS(Board gamestate, int iterations) {
+    auto root = MCnode(std::nullopt, gamestate);
     for (auto i = 0; i < iterations; ++i) {
+        std::cout << "selection has been entered" << std::endl;
         auto leaf = root.selection();
-        auto chosen = leaf.expansion();
-        auto score = chosen.simulation();
-        chosen.backpropagation(score);
+        auto chosen = leaf->expansion();
+        auto score = chosen->simulation();
+        chosen->backpropagation(score);
     }
     return root.get_next_move();
 }

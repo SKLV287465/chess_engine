@@ -8,6 +8,7 @@
 
 class Board {
     public:
+    Board() = default;
     Board(std::string fen);
     // get and set pieces
     inline U64 wpawns() const{return bitboards[0];}

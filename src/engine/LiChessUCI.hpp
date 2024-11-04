@@ -7,7 +7,7 @@
 class LiChessUCI {
     public:
     LiChessUCI() {
-        *board = Board("");
+        board = new Board("");
         board->set_bitboards(STARTING_POSITIONS);
     }
 

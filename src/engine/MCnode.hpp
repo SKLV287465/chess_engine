@@ -5,15 +5,16 @@
 #include <vector>
 #include <queue>
 #include "Board.hpp"
+#include <optional>
 class MCnode {
     public:
-    MCnode(MCnode* parent, Board* gamestate);
+    MCnode(std::optional<MCnode*> parent, Board gamestate);
     double UCT() {
         return (_w / _n) + C * sqrt(log10(_N) / _n);
     }
     Board get_next_move();
-    MCnode selection(); // compute UCT
-    MCnode expansion();
+    MCnode* selection(); // compute UCT
+    MCnode* expansion();
     double simulation(); // negmax with alpha beta pruning
     void backpropagation(double score);
     private:
@@ -23,10 +24,10 @@ class MCnode {
     double _n;
     // total number of simulations for the parent node
     double _N;
-    Board* _gamestate;
-    MCnode* _parent;
+    Board _gamestate;
+    std::optional<MCnode*> _parent;
     const double C = std::sqrt(2);
-    std::vector<MCnode> _children;
+    std::vector<MCnode*> _children;
 };
 
 // UCT = w/n + C * sqrt((lnN)/n)
