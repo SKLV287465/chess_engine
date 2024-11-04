@@ -59,6 +59,7 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 
 void LiChessUCI::search() {
 	*board = (board->MCTS_next_move());
+	board->update_check();
 	std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r()) << std::endl;
 }
 

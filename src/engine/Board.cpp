@@ -72,3 +72,26 @@ Board Board::negamax_next_move() {
 Board Board::MCTS_next_move() {
     return algorithms::MCTS(*this, 300);
 }
+
+void Board::update_check() {
+    if (get_turn()) {
+        uncheck_wking();
+        auto next_turns = generate_wmoves();
+        for (auto& m : next_turns) {
+            if (!m.bitboards[black_king]) {
+                check_bking();
+                return;
+            }
+        }
+    } else {
+        uncheck_bking();
+        auto next_turns = generate_bmoves();
+        for (auto& m : next_turns) {
+            if (!m.bitboards[white_king]) {
+                check_wking();
+                return;
+            }
+        }
+    }
+    
+}

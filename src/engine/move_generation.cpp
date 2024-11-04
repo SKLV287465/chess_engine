@@ -30,6 +30,11 @@ inline Board do_move(U64 origin, U64 dest, int piece_type, Board& old_board) {
     auto nb = old_board;
     set_pm_positions(origin, dest, nb);
     nb.bitboards[piece_type] ^= (origin | dest);
+    if (old_board.get_turn()) {
+        nb.white_turn();
+    } else {
+        nb.black_turn();
+    }
     return nb;
 }
 
@@ -48,6 +53,11 @@ inline Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board) {
             break;
         }
     }
+    if (old_board.get_turn()) {
+        nb.white_turn();
+    } else {
+        nb.black_turn();
+    }
     return nb;
 }
 
@@ -65,12 +75,14 @@ void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
     // implement castling
     if (wlcastle(board, occupied)) {
         auto castlel = do_move(RANK_1 & FILE_E, RANK_1 & FILE_C, white_king, board);
-        castlel.bitboards[white_rook] ^= (RANK_1 & (FILE_A | FILE_D)); 
+        castlel.bitboards[white_rook] ^= (RANK_1 & (FILE_A | FILE_D));
+        castlel.black_turn();
         moves.push_back(castlel);
     }
     if (wrcastle(board, occupied)) {
         auto castler = do_move(RANK_1 & FILE_E, RANK_1 & FILE_G, white_king, board);
         castler.bitboards[white_rook] ^= (RANK_1 & (FILE_H | FILE_F));
+        castler.black_turn();
         moves.push_back(castler);
     }
     // implement en passant
@@ -81,6 +93,7 @@ void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
             renpassant.bitboards[0] ^= ((board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_H) | (board.pm_np_f() & RANK_6));
             renpassant.bitboards[6] ^= (board.pm_np_f() & board.pm_np_r());
             set_pm_positions((board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_H), (board.pm_np_f() & RANK_6), renpassant);
+            renpassant.black_turn();
             moves.push_back(renpassant);
         }
         // left attack
@@ -89,6 +102,7 @@ void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
             lenpassant.bitboards[0] ^= ((board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A) | (board.pm_np_f() & RANK_6));
             lenpassant.bitboards[6] ^= (board.pm_np_f() & board.pm_np_r());
             set_pm_positions((board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A), (board.pm_np_f() & RANK_6), lenpassant);
+            lenpassant.black_turn();
             moves.push_back(lenpassant);
         }
     }
@@ -105,6 +119,8 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto knight_promo = queen_promo;
             queen_promo.bitboards[4] |= dest;
             knight_promo.bitboards[1] |= dest;
+            queen_promo.black_turn();
+            knight_promo.black_turn();
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -126,6 +142,8 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto knight_promo = queen_promo;
             queen_promo.bitboards[4] |= dest;
             knight_promo.bitboards[1] |= dest;
+            queen_promo.black_turn();
+            knight_promo.black_turn();
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -142,6 +160,8 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto knight_promo = queen_promo;
             queen_promo.bitboards[4] |= dest;
             knight_promo.bitboards[1] |= dest;
+            queen_promo.black_turn();
+            knight_promo.black_turn();
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -355,12 +375,14 @@ void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
     // implement castling
     if (blcastle(board, occupied)) {
         auto castlel = do_move(RANK_8 & FILE_E, RANK_8 & FILE_C, black_king, board);
-        castlel.bitboards[black_rook] ^= (RANK_8 & (FILE_A | FILE_D)); 
+        castlel.bitboards[black_rook] ^= (RANK_8 & (FILE_A | FILE_D));
+        castlel.white_turn();
         moves.push_back(castlel);
     }
     if (brcastle(board, occupied)) {
         auto castler = do_move(RANK_8 & FILE_E, RANK_8 & FILE_G, black_king, board);
         castler.bitboards[black_rook] ^= (RANK_8 & (FILE_H | FILE_F));
+        castler.white_turn();
         moves.push_back(castler);
     }
     // implement en passant
@@ -371,6 +393,7 @@ void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
             renpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H) | (board.pm_np_f() & RANK_3));
             renpassant.bitboards[0] ^= (board.pm_np_f() & board.pm_np_r());
             set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H), (board.pm_np_f() & RANK_3), renpassant);
+            renpassant.white_turn();
             moves.push_back(renpassant);
         }
         // left attack
@@ -379,6 +402,7 @@ void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
             lenpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A) | (board.pm_np_f() & RANK_3));
             lenpassant.bitboards[0] ^= (board.pm_np_f() & board.pm_np_r());
             set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A), (board.pm_np_f() & RANK_3), lenpassant);
+            lenpassant.white_turn();
             moves.push_back(lenpassant);
         }
     }
@@ -395,6 +419,8 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto knight_promo = queen_promo;
             queen_promo.bitboards[10] |= dest;
             knight_promo.bitboards[7] |= dest;
+            queen_promo.white_turn();
+            knight_promo.white_turn();
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -416,6 +442,8 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto knight_promo = queen_promo;
             queen_promo.bitboards[10] |= dest;
             knight_promo.bitboards[7] |= dest;
+            queen_promo.white_turn();
+            knight_promo.white_turn();
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -432,6 +460,8 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto knight_promo = queen_promo;
             queen_promo.bitboards[10] |= dest;
             knight_promo.bitboards[7] |= dest;
+            queen_promo.white_turn();
+            knight_promo.white_turn();
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
