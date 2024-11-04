@@ -36,7 +36,6 @@ double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
 
 MCnode* MCnode::selection() {
     if (!_children.size()) {
-        std::cout << "size" << std::endl;
         return this;
     }
     double maxuct = std::numeric_limits<double>::min();
@@ -60,7 +59,6 @@ MCnode* MCnode::expansion() {
     for (auto &move : possible_moves) {
         auto node = new MCnode(this, move);
         _children.push_back(node);
-        std::cout << "push back done" << std::endl;
     }
     std::random_device rd; // Seed for the random number engine
     std::mt19937 gen(rd()); // Mersenne Twister engine for generating random numbers
@@ -83,7 +81,6 @@ void MCnode::backpropagation(double score) {
 Board algorithms::MCTS(Board gamestate, int iterations) {
     auto root = MCnode(std::nullopt, gamestate);
     for (auto i = 0; i < iterations; ++i) {
-        std::cout << "selection has been entered" << std::endl;
         auto leaf = root.selection();
         auto chosen = leaf->expansion();
         auto score = chosen->simulation();
