@@ -15,6 +15,7 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 	{
 		delete board;
 		board = new Board("");
+		board->set_bitboards(STARTING_POSITIONS);
 		//is >> token; // Consume "moves" token if any
 	}
 	else if (token == "fen")
