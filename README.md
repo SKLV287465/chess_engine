@@ -1,5 +1,6 @@
 # chess_engine
 
 TODOS
-- helper functions to set and unset the flags
-- move generation (clean)
+- create evaluation tables
+- // MCTS and negamax requires checkemate checking.
+- make SMFL or CLI version of chess.

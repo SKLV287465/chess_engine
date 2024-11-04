@@ -1,9 +1,14 @@
+#ifndef BOARD_HPP
+#define BOARD_HPP
+
 #include <array>
 #include <vector>
 #include <constants.hpp>
+#include <string>
 
 class Board {
     public:
+    Board(std::string fen);
     // get and set pieces
     inline U64 wpawns() const{return bitboards[0];}
 	inline U64 wknights() const{return bitboards[1];}
@@ -59,8 +64,8 @@ class Board {
     inline void set_pm_np_f(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111111000111) | static_cast<uint32_t>(new_move << 3);};
     inline void set_pm_np_r(uint8_t new_move) {b_info = (b_info & 0b11111111111111111111111111111000) | new_move;};
     inline bool get_turn() {return (b_info >> 25) & 0b1;};
-    inline bool white_turn() {b_info &= 0b11111101111111111111111111111111;};
-    inline bool black_turn() {b_info |= 0b00000010000000000000000000000000;};
+    inline void white_turn() {b_info &= 0b11111101111111111111111111111111;};
+    inline void black_turn() {b_info |= 0b00000010000000000000000000000000;};
     // /**
     //  * at end of every turn, this function runs to update the flags for checks
     //  */
@@ -71,6 +76,8 @@ class Board {
     void set_bitboards(std::array<U64, 12> new_board) {
         bitboards = new_board;
     }
+    Board negamax_next_move();
+    Board MCTS_next_move();
     // friends for easier implementation
     friend Board do_move(U64 origin, U64 dest, int piece_type, Board& old_board);
     friend Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board);
@@ -78,7 +85,7 @@ class Board {
     friend void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 boccupied);
     friend void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
     friend void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 woccupied);
-    friend int evaluate_advantage(Board& board);
+    double evaluate_advantage(Board& board);
     private:
     /**
      * bitboard representation of the chessboard
@@ -114,3 +121,5 @@ class Board {
      */
     uint32_t b_info;
 };
+
+#endif

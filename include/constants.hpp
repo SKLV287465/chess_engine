@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <array>
+#include <unordered_map>
 
 typedef uint64_t U64;
 
@@ -93,5 +94,18 @@ const std::array<U64, 12> STARTING_POSITIONS = {
     0x0800000000000000ULL,  // Black Queen (on d8)
     0x1000000000000000ULL   // Black King (on e8)
 };
+
+const std::unordered_map<U64, char> FILENTC = {
+    {0, 'a'},
+    {1, 'b'},
+    {2, 'c'},
+    {3, 'd'},
+    {4, 'e'},
+    {5, 'f'},
+    {6, 'g'},
+    {7, 'h'}
+};
+
+const int NEGAMAX_DEPTH = 6;
 
 #endif

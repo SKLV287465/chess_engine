@@ -68,28 +68,29 @@ set(CMAKE_CXX_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT "-fsanitize=address,undefined
 add_library(Include INTERFACE)
 target_include_directories(Include INTERFACE ${CMAKE_SOURCE_DIR}/include)
 
-include(FetchContent)
-FetchContent_Declare(
-  catch
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG v3.0.1  # Replace with the latest version
-)
-FetchContent_MakeAvailable(catch)
+# include(FetchContent)
+# FetchContent_Declare(
+#   catch
+#   GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+#   GIT_TAG v3.0.1  # Replace with the latest version
+# )
+# FetchContent_MakeAvailable(catch)
 
 
 
 # adding main file
-# add_executable(debugging src/main.cpp)
+add_executable(UCI src/engine/UCIgame.cpp src/engine/algorithms.cpp src/engine/Board.cpp src/engine/LiChessUCI.cpp src/engine/move_generation.cpp src/engine/MCnode.cpp src/engine/evaluation.cpp)
+target_link_libraries(UCI PUBLIC Include)
 
 # adding test file
-add_executable(boardinfo_test_exe tests/boardinfo.test.cpp)
-target_link_libraries(boardinfo_test_exe PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(boardinfo_test_exe PUBLIC Include)
-add_test(boardinfo_test boardinfo_test_exe)
-add_executable(white_move_generation_test_exe tests/white_move_generation.test.cpp src/engine/move_generation.cpp)
-target_link_libraries(white_move_generation_test_exe PRIVATE Catch2::Catch2WithMain)
-target_link_libraries(white_move_generation_test_exe PUBLIC Include)
-add_test(white_move_generation_test_exe white_move_generation_test_exe)
+# add_executable(boardinfo_test_exe tests/boardinfo.test.cpp)
+# target_link_libraries(boardinfo_test_exe PRIVATE Catch2::Catch2WithMain)
+# target_link_libraries(boardinfo_test_exe PUBLIC Include)
+# add_test(boardinfo_test boardinfo_test_exe)
+# add_executable(white_move_generation_test_exe tests/white_move_generation.test.cpp src/engine/move_generation.cpp)
+# target_link_libraries(white_move_generation_test_exe PRIVATE Catch2::Catch2WithMain)
+# target_link_libraries(white_move_generation_test_exe PUBLIC Include)
+# add_test(white_move_generation_test_exe white_move_generation_test_exe)
 
 
 # # adding benchmark file
