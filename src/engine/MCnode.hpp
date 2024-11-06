@@ -6,6 +6,7 @@
 #include <queue>
 #include "Board.hpp"
 #include <optional>
+#include <memory>
 class MCnode {
     public:
     MCnode(std::optional<MCnode*> parent, Board gamestate);
@@ -27,7 +28,7 @@ class MCnode {
     Board _gamestate;
     std::optional<MCnode*> _parent;
     const double C = std::sqrt(2);
-    std::vector<MCnode*> _children;
+    std::vector<std::unique_ptr<MCnode>> _children;
 };
 
 // UCT = w/n + C * sqrt((lnN)/n)

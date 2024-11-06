@@ -6,48 +6,47 @@
 #include "algorithms.hpp"
 
 Board::Board(std::string fen) {
+    bitboards = {0,0,0,0,0,0,0,0,0,0,0,0};
+    b_info = 0;
     // Extract only the board setup part of the FEN string
     std::string boardSetup = fen.substr(0, fen.find(' '));
     
-    int rank = 7;  // Start from rank 8
-    int file = 0;  // Start from file 'a'
-    
+    int rank = 7;  // Start from the 8th rank (index 7)
+    int file = 0;  // Start from the 'a' file (index 0)
+
     for (char ch : boardSetup) {
         if (ch == '/') {
             // Move to the next rank
             rank--;
             file = 0;
         } else if (isdigit(ch)) {
-            // Empty squares, move the file index forward
+            // Skip the specified number of squares
             file += ch - '0';
         } else {
             // Calculate the position in the bitboard (0 to 63)
             int position = rank * 8 + file;
-            
-            // Determine the appropriate bitboard index based on the piece character
-            int bitboardIndex;
+
+            // Set the bit in the correct bitboard based on the piece character
             switch (ch) {
-                case 'P': bitboardIndex = white_pawn; break;
-                case 'N': bitboardIndex = white_knight; break;
-                case 'B': bitboardIndex = white_bishop; break;
-                case 'R': bitboardIndex = white_rook; break;
-                case 'Q': bitboardIndex = white_queen; break;
-                case 'K': bitboardIndex = white_king; break;
-                case 'p': bitboardIndex = black_pawn; break;
-                case 'n': bitboardIndex = black_knight; break;
-                case 'b': bitboardIndex = black_bishop; break;
-                case 'r': bitboardIndex = black_rook; break;
-                case 'q': bitboardIndex = black_queen; break;
-                case 'k': bitboardIndex = black_king; break;
-                default: continue;
+                case 'P': bitboards[white_pawn] |= (1ULL << position); break;
+                case 'N': bitboards[white_knight] |= (1ULL << position); break;
+                case 'B': bitboards[white_bishop] |= (1ULL << position); break;
+                case 'R': bitboards[white_rook] |= (1ULL << position); break;
+                case 'Q': bitboards[white_queen] |= (1ULL << position); break;
+                case 'K': bitboards[white_king] |= (1ULL << position); break;
+                case 'p': bitboards[black_pawn] |= (1ULL << position); break;
+                case 'n': bitboards[black_knight] |= (1ULL << position); break;
+                case 'b': bitboards[black_bishop] |= (1ULL << position); break;
+                case 'r': bitboards[black_rook] |= (1ULL << position); break;
+                case 'q': bitboards[black_queen] |= (1ULL << position); break;
+                case 'k': bitboards[black_king] |= (1ULL << position); break;
             }
-            
-            // Set the bit at the calculated position
-            bitboards[bitboardIndex] |= (1ULL << position);
+            // Move to the next file
             ++file;
         }
     }
 }
+
 
 Board Board::negamax_next_move() {
     std::vector<Board> moves;

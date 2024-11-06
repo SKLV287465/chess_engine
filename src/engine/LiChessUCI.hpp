@@ -4,15 +4,16 @@
 #include "Board.hpp"
 #include <constants.hpp>
 #include <string>
+#include <memory>
 class LiChessUCI {
     public:
     LiChessUCI() {
-        board = new Board("");
+        board = std::make_unique<Board>("");
         board->set_bitboards(STARTING_POSITIONS);
     }
 
     LiChessUCI(std::string s) {
-        *board = Board(s);
+        board = std::make_unique<Board>(s);
     }
     void loop();
     void search();
@@ -25,7 +26,7 @@ class LiChessUCI {
 	unsigned int winc;
 	unsigned int binc;
 	unsigned int movestogo;
-	Board* board;
+	std::unique_ptr<Board> board;
 };
 
 #endif

@@ -8,10 +8,10 @@ MCnode::MCnode(std::optional<MCnode*> parent, Board gamestate) {
     _n = 0;
     // total number of simulations for the parent node
     if (parent) {
-        _N = (*parent)->_n;
+        _N = (parent.value())->_n;
     }
     
-    _children = std::vector<MCnode*>{};
+    _children = std::vector<std::unique_ptr<MCnode>>{};
 }
 
 Board MCnode::get_next_move() {

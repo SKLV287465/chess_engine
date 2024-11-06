@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include "algorithms.hpp"
+#include <memory>
 double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
     if (depth == 0) return board.evaluate_advantage(board); // or game is over
     double max = std::numeric_limits<double>::min();
@@ -62,8 +63,7 @@ MCnode* MCnode::expansion() {
     }
 
     for (auto &move : possible_moves) {
-        auto node = new MCnode(this, move);
-        _children.push_back(node);
+        _children.push_back(std::make_unique<MCnode>(this, move));
     }
     if (_children.size() == 0) {
         return this;
@@ -72,12 +72,15 @@ MCnode* MCnode::expansion() {
     std::mt19937 gen(rd()); // Mersenne Twister engine for generating random numbers
     std::uniform_int_distribution<> dis(0, _children.size() - 1); // Define range
 
-    return _children[dis(gen)];
+    return _children[dis(gen)].get();
 }
 double MCnode::simulation() {
     return algorithms::negamax(_gamestate, std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), 3);
 }
 void MCnode::backpropagation(double score) {
+    if (score == std::numeric_limits<double>::min()) {
+        _w = std::numeric_limits<double>::min();
+    }
     if (score > 0) {
         ++_w;
     } else {
@@ -86,7 +89,7 @@ void MCnode::backpropagation(double score) {
     ++_n;
     if (_parent) {
         ++_N;
-        (*_parent)->backpropagation(score);
+        _parent.value()->backpropagation(score);
     }
 }
 
