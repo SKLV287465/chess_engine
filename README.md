@@ -9,3 +9,6 @@ Bugfixes:
 
 - pm is sometimes not set correctly
 - queen move is not correct, not all moves generated
+
+# Play on Lichess
+COMP4121bot
