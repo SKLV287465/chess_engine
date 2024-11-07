@@ -117,7 +117,7 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         moves.push_back(do_move(dest >> 16, dest, white_pawn, board));
         double_push ^= dest;
     }
-    U64 left_attack = (board.wpawns() << 9) & ~ FILE_H & boccupied;
+    U64 left_attack = (board.wpawns() << 9) & ~ FILE_A & boccupied;
     while (left_attack) {
         U64 dest = left_attack & -left_attack;
         if (dest & RANK_8) {
@@ -163,20 +163,18 @@ void process_moves(Board& board, std::vector<Board>& moves, U64 destinations, U6
         board.disable_blcastle();
         board.disable_brcastle();
         break;
-        // error: left castle should not be banned in some cases.
     case white_rook:
-        if ((board.wrooks() & -board.wrooks()) == origin) {
+        if (origin & RANK_1 & FILE_H) {
             board.disable_wrcastle();
-        } else {
+        } else if (origin & RANK_1 & FILE_A) {
             board.disable_wlcastle();
         }
         break;
-        // error: right castle should not be banned in some cases.
     case black_rook:
-        if ((board.brooks() & -board.brooks()) == origin) {
-            board.disable_blcastle();
-        } else {
+        if (origin & RANK_8 & FILE_A) {
             board.disable_brcastle();
+        } else if (origin & RANK_8 & FILE_H) {
+            board.disable_blcastle();
         }
         break;
     }
@@ -196,42 +194,42 @@ U64 get_sliding_moves(U64 ptr, int direction, U64 froccupied, U64 opoccupied) {
     switch (direction)
     {
     case NW:
-        while ((ptr <<= 9) & ~FILE_H) {
+        while ((ptr <<= 9) & ~FILE_A) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case W:
-        while ((ptr <<= 1) & ~FILE_H) {
+        while ((ptr <<= 1) & ~FILE_A) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case SW:
-        while ((ptr >>= 7) & ~FILE_H) {
+        while ((ptr >>= 7) & ~FILE_A) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case NE:
-        while ((ptr <<= 7) & ~FILE_A) {
+        while ((ptr <<= 7) & ~FILE_H) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case E:
-        while ((ptr >>= 1) & ~FILE_A) {
+        while ((ptr >>= 1) & ~FILE_H) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
         }
         break;
     case SE:
-        while ((ptr >>= 9) & ~FILE_A) {
+        while ((ptr >>= 9) & ~FILE_H) {
             if (ptr & froccupied) break;
             destinations |= ptr;
             if (ptr & opoccupied) break;
@@ -410,7 +408,7 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         moves.push_back(do_move(dest << 16, dest, black_pawn, board));
         double_push ^= dest;
     }
-    U64 left_attack = (board.bpawns() >> 9) & ~ FILE_H & woccupied;
+    U64 left_attack = (board.bpawns() >> 9) & ~ FILE_A & woccupied;
     while (left_attack) {
         U64 dest = left_attack & -left_attack;
         if (dest & RANK_1) {

@@ -38,7 +38,6 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 			char four = token[3];
 			std::vector<Board> moves;
 			// potential error here if board goes out of scope
-			std::cout << board->get_turn() << std::endl;
 			if (board->get_turn()) {
 				moves = board->generate_bmoves();
 			} else {
@@ -51,6 +50,10 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 				if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
 					board = std::make_unique<Board>(std::move(b));
 					std::cout << "-found-"<< std::endl << std::endl;
+					std::cout << board->can_brcastle() << std::endl;
+					std::cout << board->can_blcastle() << std::endl;
+					std::cout << board->can_wlcastle() << std::endl;
+					std::cout << board->can_wrcastle() << std::endl;
 					board->print_board();
 					break;
 				}
@@ -63,7 +66,8 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 }
 
 void LiChessUCI::search() {
-	board = std::make_unique<Board>(std::move(board->MCTS_next_move()));
+	// board = std::make_unique<Board>(std::move(board->MCTS_next_move()));
+	board = std::make_unique<Board>(std::move(board->negamax_next_move()));
 	board->update_check();
 	// board->print_board();
 	std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r()) << std::endl;

@@ -42,8 +42,8 @@ class Board {
     std::vector<Board> generate_bmoves();
 
     // get and set board info
-    inline bool wking_in_check() {return (b_info >> 31) & 0b1;};
-    inline bool bking_in_check() {return (b_info >> 30) & 0b1;};
+    inline bool wking_in_check() {return ((b_info >> 31) & 0b1);};
+    inline bool bking_in_check() {return ((b_info >> 30) & 0b1);};
     inline void check_wking() {b_info |= static_cast<uint32_t>(1 << 31);};
     inline void uncheck_wking() {b_info &= 0b01111111111111111111111111111111;};
     inline void check_bking() {b_info |= static_cast<uint32_t>(1 << 30);};

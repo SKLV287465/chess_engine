@@ -7,5 +7,6 @@ TODOS
 
 Bugfixes:
 
-- pm is sometimes not set correctly
-- queen move is not correct, not all moves generated
+- pawn promotions do not toggle last position
+- castle does not work
+- negamax does not seem to correctly choose good moves.

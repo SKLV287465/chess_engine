@@ -61,7 +61,7 @@ Board Board::negamax_next_move() {
         double score = algorithms::negamax(moves[i], std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), NEGAMAX_DEPTH);
         if (score > max_score) {
             index = i;
-            max_score - score;
+            max_score = score;
         }
     }
     return moves[index];
