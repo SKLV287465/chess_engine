@@ -10,3 +10,7 @@ Bugfixes:
 - pawn promotions do not toggle last position
 - castle does not work
 - negamax does not seem to correctly choose good moves.
+
+# Play on Lichess
+
+COMP4121bot
