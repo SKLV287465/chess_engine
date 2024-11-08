@@ -10,14 +10,15 @@
 #include <memory>
 double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
     if (depth == 0) return board.evaluate_advantage(board); // or game is over
-    double max = std::numeric_limits<double>::min();
+    double max = -std::numeric_limits<double>::infinity();
     if (board.get_turn()) {
+        if (!board.bking()) return -std::numeric_limits<double>::infinity();
         // black
         if (!board.wking()) {
-            return std::numeric_limits<double>::max();
+            return std::numeric_limits<double>::infinity();
         }
         for (auto move : board.generate_bmoves()) {
-            double score = algorithms::negamax(move, -beta, -alpha, depth - 1);
+            double score = -algorithms::negamax(move, -beta, -alpha, depth - 1);
             max = (score > max) ? score : max;
             alpha = (score > alpha) ? score : alpha;
             if (alpha >= beta) {
@@ -25,11 +26,12 @@ double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
             }
         }
     } else {
+        if (!board.wking()) return -std::numeric_limits<double>::infinity();
         if (!board.bking()) {
-            return std::numeric_limits<double>::max();
+            return std::numeric_limits<double>::infinity();
         }
         for (auto move : board.generate_wmoves()) {
-            double score = algorithms::negamax(move, -beta, -alpha, depth - 1);
+            double score = -algorithms::negamax(move, -beta, -alpha, depth - 1);
             max = (score > max) ? score : max;
             alpha = (score > alpha) ? score : alpha;
             if (alpha >= beta) {
@@ -44,7 +46,7 @@ MCnode* MCnode::selection() {
     if (!_children.size()) {
         return this;
     }
-    double maxuct = std::numeric_limits<double>::min();
+    double maxuct = -std::numeric_limits<double>::infinity();
     int maxindex = 0;
     for (auto i = 0; i < _children.size(); ++i) {
         if (maxuct < _children[i]->UCT()) {
@@ -75,11 +77,11 @@ MCnode* MCnode::expansion() {
     return _children[dis(gen)].get();
 }
 double MCnode::simulation() {
-    return algorithms::negamax(_gamestate, std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), 3);
+    return -algorithms::negamax(_gamestate, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), 3);
 }
 void MCnode::backpropagation(double score) {
-    if (score == std::numeric_limits<double>::min()) {
-        _w = std::numeric_limits<double>::min();
+    if (score == -std::numeric_limits<double>::infinity()) {
+        _w = -std::numeric_limits<double>::infinity();
     }
     if (score > 0) {
         ++_w;

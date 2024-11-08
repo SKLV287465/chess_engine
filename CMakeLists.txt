@@ -39,6 +39,7 @@ add_compile_options(
   -Wzero-as-null-pointer-constant
   -Wsuggest-override
   -fstack-protector-strong
+  -O3
 )
 
 # debug builds should be compiled with sanitizers

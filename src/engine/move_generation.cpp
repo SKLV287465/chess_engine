@@ -103,8 +103,12 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto queen_promo = board;
             queen_promo.bitboards[0] ^= dest >> 8;
             auto knight_promo = queen_promo;
+            queen_promo.remove_piece(dest);
+            knight_promo.remove_piece(dest);
             queen_promo.bitboards[4] |= dest;
             knight_promo.bitboards[1] |= dest;
+            set_pm_positions(dest >> 8, dest, queen_promo);
+            set_pm_positions(dest >> 8, dest, knight_promo);
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -117,15 +121,19 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         moves.push_back(do_move(dest >> 16, dest, white_pawn, board));
         double_push ^= dest;
     }
-    U64 left_attack = (board.wpawns() << 9) & ~ FILE_A & boccupied;
+    U64 left_attack = (board.wpawns() << 9) & ~ FILE_H & boccupied;
     while (left_attack) {
         U64 dest = left_attack & -left_attack;
         if (dest & RANK_8) {
             auto queen_promo = board;
             queen_promo.bitboards[0] ^= dest >> 9;
             auto knight_promo = queen_promo;
+            queen_promo.remove_piece(dest);
+            knight_promo.remove_piece(dest);
             queen_promo.bitboards[4] |= dest;
             knight_promo.bitboards[1] |= dest;
+            set_pm_positions(dest >> 9, dest, queen_promo);
+            set_pm_positions(dest >> 9, dest, knight_promo);
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -133,15 +141,19 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         }
         left_attack ^= dest;
     }
-    U64 right_attack = (board.wpawns() << 7) & ~ FILE_H & boccupied;
+    U64 right_attack = (board.wpawns() << 7) & ~ FILE_A & boccupied;
     while (right_attack) {
         U64 dest = right_attack & -right_attack;
         if (dest & RANK_8) {
             auto queen_promo = board;
             queen_promo.bitboards[0] ^= dest >> 7;
             auto knight_promo = queen_promo;
+            queen_promo.remove_piece(dest);
+            knight_promo.remove_piece(dest);
             queen_promo.bitboards[4] |= dest;
             knight_promo.bitboards[1] |= dest;
+            set_pm_positions(dest >> 7, dest, queen_promo);
+            set_pm_positions(dest >> 7, dest, knight_promo);
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -151,7 +163,7 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
     }
 }
 
-void process_moves(Board& board, std::vector<Board>& moves, U64 destinations, U64 origin, uint8_t piece_type, U64 opoccupied) {
+void process_moves(Board board, std::vector<Board>& moves, U64 destinations, U64 origin, uint8_t piece_type, U64 opoccupied) {
     switch (piece_type)
     {
     case white_king:
@@ -394,8 +406,12 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             auto queen_promo = board;
             queen_promo.bitboards[6] ^= dest << 8;
             auto knight_promo = queen_promo;
+            queen_promo.remove_piece(dest);
+            knight_promo.remove_piece(dest);
             queen_promo.bitboards[10] |= dest;
             knight_promo.bitboards[7] |= dest;
+            set_pm_positions(dest << 8, dest, queen_promo);
+            set_pm_positions(dest << 8, dest, knight_promo);
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -408,15 +424,19 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         moves.push_back(do_move(dest << 16, dest, black_pawn, board));
         double_push ^= dest;
     }
-    U64 left_attack = (board.bpawns() >> 9) & ~ FILE_A & woccupied;
+    U64 left_attack = (board.bpawns() >> 9) & ~ FILE_H & woccupied;
     while (left_attack) {
         U64 dest = left_attack & -left_attack;
         if (dest & RANK_1) {
             auto queen_promo = board;
             queen_promo.bitboards[6] ^= dest << 9;
             auto knight_promo = queen_promo;
+            queen_promo.remove_piece(dest);
+            knight_promo.remove_piece(dest);
             queen_promo.bitboards[10] |= dest;
             knight_promo.bitboards[7] |= dest;
+            set_pm_positions(dest << 9, dest, queen_promo);
+            set_pm_positions(dest << 9, dest, knight_promo);
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
@@ -424,15 +444,19 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         }
         left_attack ^= dest;
     }
-    U64 right_attack = (board.bpawns() >> 7) & ~ FILE_H & woccupied;
+    U64 right_attack = (board.bpawns() >> 7) & ~ FILE_A & woccupied;
     while (right_attack) {
         U64 dest = right_attack & -right_attack;
         if (dest & RANK_1) {
             auto queen_promo = board;
             queen_promo.bitboards[6] ^= dest << 7;
             auto knight_promo = queen_promo;
+            queen_promo.remove_piece(dest);
+            knight_promo.remove_piece(dest);
             queen_promo.bitboards[10] |= dest;
             knight_promo.bitboards[7] |= dest;
+            set_pm_positions(dest << 7, dest, queen_promo);
+            set_pm_positions(dest << 7, dest, knight_promo);
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {

@@ -3,12 +3,10 @@
 TODOS
 
 - create evaluation tables
-- king, queen, rook and bishop moves are cooked.
+- Promotion to Bishop and Rook
 
 Bugfixes:
 
-- pawn promotions do not toggle last position
-- castle does not work
 - negamax does not seem to correctly choose good moves.
 
 # Play on Lichess

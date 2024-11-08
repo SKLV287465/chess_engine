@@ -72,6 +72,14 @@ class Board {
     //  * at end of every turn, this function runs to update the flags for checks
     //  */
     void update_check();
+    void remove_piece(U64 position) {
+        for (auto i = 0; i < 12; ++i) {
+            if (bitboards[i] & position) {
+                bitboards[i] ^= position;
+                return;
+            }
+        }
+    }
 
     // // DEBUGGING:
     void print_board() {

@@ -28,6 +28,7 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 	}
 
 	// Parse move list (if any)
+	// other piece promotions to do.
 	while (is >> token)
 	{
 		if (token != "moves")
@@ -36,6 +37,10 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 			char two = token[1];
 			char three = token[2];
 			char four = token[3];
+			char five;
+			if (token.size() > 4) {
+				five = token[4];
+			}
 			std::vector<Board> moves;
 			// potential error here if board goes out of scope
 			if (board->get_turn()) {
@@ -49,11 +54,6 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 				// std::cout << (FILENTC.at(b.pm_op_f()) == one) << (RANKNTC.at(b.pm_op_r()) == two) << (FILENTC.at(b.pm_np_f()) == three) << (RANKNTC.at(b.pm_np_r()) == four) << std::endl;
 				if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
 					board = std::make_unique<Board>(std::move(b));
-					std::cout << "-found-"<< std::endl << std::endl;
-					std::cout << board->can_brcastle() << std::endl;
-					std::cout << board->can_blcastle() << std::endl;
-					std::cout << board->can_wlcastle() << std::endl;
-					std::cout << board->can_wrcastle() << std::endl;
 					board->print_board();
 					break;
 				}

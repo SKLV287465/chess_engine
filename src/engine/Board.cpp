@@ -55,15 +55,16 @@ Board Board::negamax_next_move() {
     } else {
         moves = generate_wmoves();
     }
-    double max_score = std::numeric_limits<double>::min();
+    double max_score = -std::numeric_limits<double>::infinity();
     int index = 0;
     for (size_t i = 0; i < moves.size(); ++i) {
-        double score = algorithms::negamax(moves[i], std::numeric_limits<double>::min(), std::numeric_limits<double>::max(), NEGAMAX_DEPTH);
+        double score = -algorithms::negamax(moves[i], -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), NEGAMAX_DEPTH);
         if (score > max_score) {
             index = i;
             max_score = score;
         }
     }
+    std::cout << max_score << std::endl;
     return moves[index];
 }
 
