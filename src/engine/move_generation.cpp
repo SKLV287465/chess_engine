@@ -121,7 +121,7 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         moves.push_back(do_move(dest >> 16, dest, white_pawn, board));
         double_push ^= dest;
     }
-    U64 left_attack = (board.wpawns() << 9) & ~ FILE_H & boccupied;
+    U64 left_attack = (board.wpawns() << 9) & ~ FILE_A & boccupied;
     while (left_attack) {
         U64 dest = left_attack & -left_attack;
         if (dest & RANK_8) {
@@ -141,7 +141,7 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
         }
         left_attack ^= dest;
     }
-    U64 right_attack = (board.wpawns() << 7) & ~ FILE_A & boccupied;
+    U64 right_attack = (board.wpawns() << 7) & ~ FILE_H & boccupied;
     while (right_attack) {
         U64 dest = right_attack & -right_attack;
         if (dest & RANK_8) {
