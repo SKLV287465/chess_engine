@@ -184,9 +184,9 @@ void process_moves(Board board, std::vector<Board>& moves, U64 destinations, U64
         break;
     case black_rook:
         if (origin & RANK_8 & FILE_A) {
-            board.disable_brcastle();
-        } else if (origin & RANK_8 & FILE_H) {
             board.disable_blcastle();
+        } else if (origin & RANK_8 & FILE_H) {
+            board.disable_brcastle();
         }
         break;
     }
