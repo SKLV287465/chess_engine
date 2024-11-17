@@ -68,6 +68,13 @@ class Board {
     inline bool get_turn() {return (b_info >> 25) & 0b1;};
     inline void white_turn() {b_info &= 0b11111101111111111111111111111111;};
     inline void black_turn() {b_info |= 0b00000010000000000000000000000000;};
+    inline int piece_at_square(U64 rank, U64 file) {
+        for (int i = 0; i < 12; ++i) {
+            if (bitboards[i] & rank & file) {
+                return i;
+            }
+        }
+    }
     // /**
     //  * at end of every turn, this function runs to update the flags for checks
     //  */

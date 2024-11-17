@@ -67,10 +67,18 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 
 void LiChessUCI::search() {
 	// board = std::make_unique<Board>(std::move(board->MCTS_next_move()));
-	board = std::make_unique<Board>(std::move(board->negamax_next_move()));
+	auto prev_board = std::move(board);
+	board = std::make_unique<Board>(std::move(prev_board->MCTS_next_move()));
 	board->update_check();
 	// board->print_board();
-	std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r()) << std::endl;
+	auto promotion = std::string{};
+	if (board->pm_np_r() == RANK_1 || board->pm_np_r() == RANK_8) {
+		if (prev_board->piece_at_square(board->pm_op_r(), board->pm_op_f()) == 0 || prev_board->piece_at_square(board->pm_op_r(), board->pm_op_f()) == 6) {
+			promotion.push_back('q');
+		}
+	}
+	
+	std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r())  << promotion << std::endl;
 }
 
 void LiChessUCI::loop()

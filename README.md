@@ -8,6 +8,7 @@ TODOS
 Bugfixes:
 
 - negamax does not seem to correctly choose good moves.
+- castle upon check problem.
 
 # Play on Lichess
 

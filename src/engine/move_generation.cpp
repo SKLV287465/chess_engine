@@ -300,14 +300,14 @@ std::vector<Board> Board::generate_wmoves() {
     // king
     U64 king = wking();
     U64 destinations = 0;
-    destinations |= (king & ~FILE_H) >> 1;
-    destinations |= (king & ~FILE_A) << 1;
+    destinations |= (king & ~FILE_A) >> 1;
+    destinations |= (king & ~FILE_H) << 1;
     destinations |= king << 8;
     destinations |= king >> 8;
-    destinations |= (king & ~FILE_H) << 7;  // Northwest
-    destinations |= (king & ~FILE_A) << 9;  // Northeast
-    destinations |= (king & ~FILE_H) >> 9;  // Southwest
-    destinations |= (king & ~FILE_A) >> 7;  // Southeast
+    destinations |= (king & ~FILE_A) << 7;  // Northwest
+    destinations |= (king & ~FILE_H) << 9;  // Northeast
+    destinations |= (king & ~FILE_A) >> 9;  // Southwest
+    destinations |= (king & ~FILE_H) >> 7;  // Southeast
     destinations &= ~woccupied;
     process_moves(*this, moves, destinations, king, white_king, boccupied);
     // bishop
@@ -497,14 +497,14 @@ std::vector<Board> Board::generate_bmoves() {
     // king
     U64 king = bking();
     U64 destinations = 0;
-    destinations |= (king & ~FILE_H) >> 1;
-    destinations |= (king & ~FILE_A) << 1;
+    destinations |= (king & ~FILE_A) >> 1;
+    destinations |= (king & ~FILE_H) << 1;
     destinations |= king << 8;
     destinations |= king >> 8;
-    destinations |= (king & ~FILE_H) << 7;  // Northwest
-    destinations |= (king & ~FILE_A) << 9;  // Northeast
-    destinations |= (king & ~FILE_H) >> 9;  // Southwest
-    destinations |= (king & ~FILE_A) >> 7;  // Southeast
+    destinations |= (king & ~FILE_A) << 7;  // Northwest
+    destinations |= (king & ~FILE_H) << 9;  // Northeast
+    destinations |= (king & ~FILE_A) >> 9;  // Southwest
+    destinations |= (king & ~FILE_H) >> 7;  // Southeast
     destinations &= ~boccupied;
     process_moves(*this, moves, destinations, king, black_king, woccupied);
     // bishop

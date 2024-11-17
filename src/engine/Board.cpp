@@ -70,7 +70,7 @@ Board Board::negamax_next_move() {
 
 // incomplete
 Board Board::MCTS_next_move() {
-    return algorithms::MCTS(*this, 300);
+    return algorithms::MCTS(*this, 1000);
 }
 
 void Board::update_check() {
