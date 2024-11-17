@@ -15,13 +15,14 @@ MCnode::MCnode(std::optional<MCnode*> parent, Board gamestate) {
 }
 
 Board MCnode::get_next_move() {
-    double maxuct = std::numeric_limits<double>::min();
+    double maxuct = -std::numeric_limits<double>::infinity();
     int maxindex = 0;
     for (auto i = 0; i < _children.size(); ++i) {
-        if (maxuct < _children[i]->UCT()) {
+        if (maxuct < _children[i]->_n) {
             maxindex = i;
-            maxuct = _children[i]->UCT();
+            maxuct = _children[i]->_n;
         }
+        std::cout << _children[i]->_n << std::endl;
     }
     return (_children[maxindex]->_gamestate);
 }

@@ -80,13 +80,11 @@ double MCnode::simulation() {
     return -algorithms::negamax(_gamestate, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), 3);
 }
 void MCnode::backpropagation(double score) {
-    if (score == -std::numeric_limits<double>::infinity()) {
-        _w = -std::numeric_limits<double>::infinity();
-    }
+    // if (score == -std::numeric_limits<double>::infinity()) {
+    //     _w = -std::numeric_limits<double>::infinity();
+    // }
     if (score > 0) {
         ++_w;
-    } else {
-        --_w;
     }
     ++_n;
     if (_parent) {

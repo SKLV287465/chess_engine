@@ -7,11 +7,12 @@
 #include "Board.hpp"
 #include <optional>
 #include <memory>
+#include <limits>
 class MCnode {
     public:
     MCnode(std::optional<MCnode*> parent, Board gamestate);
     double UCT() {
-        return (_w / _n) + C * sqrt(log10(_N) / _n);
+        return (_n == 0) ? std::numeric_limits<double>::infinity() : (_w / _n) + C * sqrt(log10(_N) / _n);
     }
     Board get_next_move();
     MCnode* selection(); // compute UCT

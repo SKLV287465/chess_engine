@@ -68,7 +68,7 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 void LiChessUCI::search() {
 	// board = std::make_unique<Board>(std::move(board->MCTS_next_move()));
 	auto prev_board = std::move(board);
-	board = std::make_unique<Board>(std::move(prev_board->MCTS_next_move()));
+	board = std::make_unique<Board>(prev_board->MCTS_next_move());
 	board->update_check();
 	// board->print_board();
 	auto promotion = std::string{};
