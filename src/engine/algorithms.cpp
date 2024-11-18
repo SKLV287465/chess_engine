@@ -8,32 +8,40 @@
 #include <random>
 #include "algorithms.hpp"
 #include <memory>
-double algorithms::negamax(Board& board, double alpha, double beta, int depth) {
+double algorithms::negamax(Board& board, double alpha, double beta, int depth, int wpieces, int bpieces) {
     if (depth == 0) return board.evaluate_advantage(board); // or game is over
     double max = -std::numeric_limits<double>::infinity();
     if (board.get_turn()) {
         if (!board.bking()) return -std::numeric_limits<double>::infinity();
-        // black
-        if (!board.wking()) {
-            return std::numeric_limits<double>::infinity();
+        std::deque<Board> possible_moves;
+        if (wpieces < 6) {
+            possible_moves = board.generate_bmoves_no_stalemate();
+        } else {
+            possible_moves = board.generate_bmoves();
         }
-        for (auto move : board.generate_bmoves()) {
-            double score = -algorithms::negamax(move, -beta, -alpha, depth - 1);
+        
+        if (possible_moves.size() == 0) return 0;
+        for (auto &move : possible_moves) {
+            double score = -algorithms::negamax(move, -beta, -alpha, depth - 1, wpieces, bpieces);
             max = (score > max) ? score : max;
-            alpha = (score > alpha) ? score : alpha;
+            alpha = std::max(alpha, score);
             if (alpha >= beta) {
                 break;
             }
         }
     } else {
         if (!board.wking()) return -std::numeric_limits<double>::infinity();
-        if (!board.bking()) {
-            return std::numeric_limits<double>::infinity();
+        std::deque<Board> possible_moves;
+        if (bpieces < 6) {
+            possible_moves = board.generate_wmoves_no_stalemate();
+        } else {
+            possible_moves = board.generate_wmoves();
         }
-        for (auto move : board.generate_wmoves()) {
-            double score = -algorithms::negamax(move, -beta, -alpha, depth - 1);
+        if (possible_moves.size() == 0) return 0;
+        for (auto &move : possible_moves) {
+            double score = -algorithms::negamax(move, -beta, -alpha, depth - 1, wpieces, bpieces);
             max = (score > max) ? score : max;
-            alpha = (score > alpha) ? score : alpha;
+            alpha = std::max(alpha, score);
             if (alpha >= beta) {
                 break;
             }
@@ -57,7 +65,7 @@ MCnode* MCnode::selection() {
     return _children[maxindex]->selection();
 } // compute UCT
 MCnode* MCnode::expansion() {
-    std::vector<Board> possible_moves;
+    std::deque<Board> possible_moves;
     if (_gamestate.get_turn()) {
         possible_moves = _gamestate.generate_bmoves();
     } else {
@@ -77,7 +85,7 @@ MCnode* MCnode::expansion() {
     return _children[dis(gen)].get();
 }
 double MCnode::simulation() {
-    return -algorithms::negamax(_gamestate, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), 3);
+    return -algorithms::negamax(_gamestate, -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), 3, 16, 16);
 }
 void MCnode::backpropagation(double score) {
     // if (score == -std::numeric_limits<double>::infinity()) {

@@ -48,17 +48,28 @@ Board::Board(std::string fen) {
 }
 
 
-Board Board::negamax_next_move() {
-    std::vector<Board> moves;
+Board Board::negamax_next_move(int wpieces, int bpieces) {
+    std::deque<Board> moves;
     if (get_turn()) {
-        moves = generate_bmoves();
+        if (wpieces < 6) {
+            moves = generate_bmoves_no_stalemate();
+        } else {
+            moves = generate_bmoves();
+        }
+        
     } else {
-        moves = generate_wmoves();
+        if (bpieces < 6) {
+            moves = generate_wmoves_no_stalemate();
+        } else {
+            moves = generate_wmoves();
+        }
     }
     double max_score = -std::numeric_limits<double>::infinity();
     int index = 0;
+    #pragma omp parallel for
     for (size_t i = 0; i < moves.size(); ++i) {
-        double score = -algorithms::negamax(moves[i], -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), NEGAMAX_DEPTH);
+        double score = -algorithms::negamax(moves[i], -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), NEGAMAX_DEPTH, wpieces, bpieces);
+        #pragma omp critical
         if (score > max_score) {
             index = i;
             max_score = score;

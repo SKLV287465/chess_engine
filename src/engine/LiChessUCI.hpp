@@ -26,6 +26,9 @@ class LiChessUCI {
 	unsigned int winc;
 	unsigned int binc;
 	unsigned int movestogo;
+    int moves_made = 0;
+    int wpieces = 16;
+    int bpieces = 16;
 	std::unique_ptr<Board> board;
 };
 

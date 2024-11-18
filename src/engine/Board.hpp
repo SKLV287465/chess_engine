@@ -2,10 +2,10 @@
 #define BOARD_HPP
 
 #include <array>
-#include <vector>
 #include <constants.hpp>
 #include <string>
 #include <iostream>
+#include <queue>
 
 class Board {
     public:
@@ -38,8 +38,10 @@ class Board {
 	inline void set_bking(U64 new_board) {bitboards[11] = new_board;}
 
     // move generation
-    std::vector<Board> generate_wmoves();
-    std::vector<Board> generate_bmoves();
+    std::deque<Board> generate_wmoves();
+    std::deque<Board> generate_bmoves();
+    std::deque<Board> generate_wmoves_no_stalemate();
+    std::deque<Board> generate_bmoves_no_stalemate();
 
     // get and set board info
     inline bool wking_in_check() {return ((b_info >> 31) & 0b1);};
@@ -117,17 +119,16 @@ class Board {
     void set_bitboards(std::array<U64, 12> new_board) {
         bitboards = new_board;
     }
-    Board negamax_next_move();
+    Board negamax_next_move(int wpieces, int bpieces);
     Board MCTS_next_move();
     // friends for easier implementation
-    friend Board do_move(U64 origin, U64 dest, int piece_type, Board& old_board);
-    friend Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board);
-    friend void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
-    friend void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 boccupied);
-    friend void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied);
-    friend void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 woccupied);
+    // friend Board do_move(U64 origin, U64 dest, int piece_type, Board& old_board);
+    // friend Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board);
+    // friend void white_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 woccupied);
+    // friend void white_pawn_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied);
+    // friend void black_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied);
+    // friend void black_pawn_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 woccupied);
     double evaluate_advantage(Board& board);
-    private:
     /**
      * bitboard representation of the chessboard
      * 0 - white pawns
@@ -144,6 +145,8 @@ class Board {
      * 11 - black kings
      */
     std::array<U64, 12> bitboards;
+    private:
+    
     /**
      * General information
      * 0 - white king in check
@@ -153,7 +156,7 @@ class Board {
      * 4 - black left castle
      * 5 - black right castle
      * 6 - turn (0 for white, 1 for black)
-     *
+     * 
      * Previous move
      * 20-22 - file of original position
      * 23-25 - rank of original position

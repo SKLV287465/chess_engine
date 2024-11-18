@@ -1,6 +1,7 @@
 #include "Board.hpp"
-#include <vector>
+#include <deque>
 #include <constants.hpp>
+#include <queue>
 
 // debug useage
 #include <iostream>
@@ -51,26 +52,30 @@ inline Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board) {
     return nb;
 }
 
-inline bool wlcastle(Board& board, U64 occupied) {
-    if (board.wking_in_check() || !board.can_wlcastle() || occupied & RANK_1 & (FILE_B | FILE_C | FILE_D)) return false;
+inline bool wlcastle(Board& board, U64 woccupied) {
+    if (board.wking_in_check() || !board.can_wlcastle() || woccupied & RANK_1 & (FILE_B | FILE_C | FILE_D)) return false;
     return true;
 }
 
-inline bool wrcastle(Board& board, U64 occupied) {
-    if (board.wking_in_check() || !board.can_wrcastle() || occupied & RANK_1 & (FILE_F | FILE_G)) return false;
+inline bool wrcastle(Board& board, U64 woccupied) {
+    if (board.wking_in_check() || !board.can_wrcastle() || woccupied & RANK_1 & (FILE_F | FILE_G)) return false;
     return true;
 }
 
-void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) {
+void white_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 woccupied) {
     // implement castling
-    if (wlcastle(board, occupied)) {
+    if (wlcastle(board, woccupied)) {
         auto castlel = do_move(RANK_1 & FILE_E, RANK_1 & FILE_C, white_king, board);
         castlel.bitboards[white_rook] ^= (RANK_1 & (FILE_A | FILE_D));
+        castlel.disable_wlcastle();
+        castlel.disable_wrcastle();
         moves.push_back(castlel);
     }
-    if (wrcastle(board, occupied)) {
+    if (wrcastle(board, woccupied)) {
         auto castler = do_move(RANK_1 & FILE_E, RANK_1 & FILE_G, white_king, board);
         castler.bitboards[white_rook] ^= (RANK_1 & (FILE_H | FILE_F));
+        castler.disable_wlcastle();
+        castler.disable_wrcastle();
         moves.push_back(castler);
     }
     // implement en passant
@@ -81,7 +86,7 @@ void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
             renpassant.bitboards[0] ^= ((board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_H) | (board.pm_np_f() & RANK_6));
             renpassant.bitboards[6] ^= (board.pm_np_f() & board.pm_np_r());
             set_pm_positions((board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_H), (board.pm_np_f() & RANK_6), renpassant);
-            moves.push_back(renpassant);
+            moves.push_front(renpassant);
         }
         // left attack
         if (board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A) {
@@ -89,12 +94,12 @@ void white_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) 
             lenpassant.bitboards[0] ^= ((board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A) | (board.pm_np_f() & RANK_6));
             lenpassant.bitboards[6] ^= (board.pm_np_f() & board.pm_np_r());
             set_pm_positions((board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A), (board.pm_np_f() & RANK_6), lenpassant);
-            moves.push_back(lenpassant);
+            moves.push_front(lenpassant);
         }
     }
 }
 
-void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 boccupied) {
+void white_pawn_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied) {
     U64 single_push = board.wpawns() << 8 & ~occupied;
     U64 double_push = (single_push << 8) & RANK_4 & ~occupied;
     while (single_push) {
@@ -137,7 +142,7 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
-            moves.push_back(do_attack(dest >> 9, dest, white_pawn, board));
+            moves.push_front(do_attack(dest >> 9, dest, white_pawn, board));
         }
         left_attack ^= dest;
     }
@@ -157,13 +162,13 @@ void white_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
-            moves.push_back(do_attack(dest >> 7, dest, white_pawn, board));
+            moves.push_front(do_attack(dest >> 7, dest, white_pawn, board));
         }
         right_attack ^= dest;
     }
 }
 
-void process_moves(Board board, std::vector<Board>& moves, U64 destinations, U64 origin, uint8_t piece_type, U64 opoccupied) {
+void process_moves(Board board, std::deque<Board>& moves, U64 destinations, U64 origin, uint8_t piece_type, U64 opoccupied) {
     switch (piece_type)
     {
     case white_king:
@@ -193,7 +198,7 @@ void process_moves(Board board, std::vector<Board>& moves, U64 destinations, U64
     while (destinations) {
         U64 dest = destinations & -destinations;
         if (dest & opoccupied) {
-            moves.push_back(do_attack(origin, dest, piece_type, board));
+            moves.push_front(do_attack(origin, dest, piece_type, board));
         } else {
             moves.push_back(do_move(origin, dest, piece_type, board));
         }
@@ -269,7 +274,7 @@ U64 get_sliding_moves(U64 ptr, int direction, U64 froccupied, U64 opoccupied) {
 /**
  * generate all pseudo-legal board states after a white move
  */
-std::vector<Board> Board::generate_wmoves() {
+std::deque<Board> Board::generate_wmoves() {
     black_turn();
     // preprocessing
     U64 woccupied = 0;
@@ -282,8 +287,8 @@ std::vector<Board> Board::generate_wmoves() {
         boccupied |= bitboards[i];
     }
     occupied = boccupied | woccupied;
-    auto moves = std::vector<Board>{};
-    white_special_moves(*this, moves, occupied);
+    auto moves = std::deque<Board>{};
+    white_special_moves(*this, moves, occupied, woccupied);
     white_pawn_moves(*this, moves, occupied, boccupied);
     // knight
     U64 knights = wknights();
@@ -351,6 +356,9 @@ std::vector<Board> Board::generate_wmoves() {
         process_moves(*this, moves, destinations, queen, white_queen, boccupied);
         queens ^= queen;
     }
+
+
+
     return moves;
 }
 
@@ -364,40 +372,45 @@ inline bool brcastle(Board& board, U64 occupied) {
     return true;
 }
 
-void black_special_moves(Board& board, std::vector<Board>& moves, U64 occupied) {
+void black_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied) {
     // implement castling
-    if (blcastle(board, occupied)) {
+    if (blcastle(board, boccupied)) {
         auto castlel = do_move(RANK_8 & FILE_E, RANK_8 & FILE_C, black_king, board);
         castlel.bitboards[black_rook] ^= (RANK_8 & (FILE_A | FILE_D));
+        castlel.disable_blcastle();
+        castlel.disable_brcastle();
         moves.push_back(castlel);
     }
-    if (brcastle(board, occupied)) {
+    if (brcastle(board, boccupied)) {
         auto castler = do_move(RANK_8 & FILE_E, RANK_8 & FILE_G, black_king, board);
         castler.bitboards[black_rook] ^= (RANK_8 & (FILE_H | FILE_F));
+        castler.disable_blcastle();
+        castler.disable_brcastle();
         moves.push_back(castler);
     }
+    
     // implement en passant
     if (board.pm_op_r() == RANK_2 && board.pm_np_r() == RANK_4) {
         // right attack
-        if (board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H) {
+        if (board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_A) {
             auto renpassant = board;
-            renpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H) | (board.pm_np_f() & RANK_3));
+            renpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_A) | (board.pm_np_f() & RANK_3));
             renpassant.bitboards[0] ^= (board.pm_np_f() & board.pm_np_r());
-            set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_H), (board.pm_np_f() & RANK_3), renpassant);
-            moves.push_back(renpassant);
+            set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() << 1) & ~FILE_A), (board.pm_np_f() & RANK_3), renpassant);
+            moves.push_front(renpassant);
         }
         // left attack
-        if (board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A) {
+        if (board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_H) {
             auto lenpassant = board;
-            lenpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A) | (board.pm_np_f() & RANK_3));
+            lenpassant.bitboards[6] ^= ((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_H) | (board.pm_np_f() & RANK_3));
             lenpassant.bitboards[0] ^= (board.pm_np_f() & board.pm_np_r());
-            set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_A), (board.pm_np_f() & RANK_3), lenpassant);
-            moves.push_back(lenpassant);
+            set_pm_positions((board.bpawns() & RANK_4 & (board.pm_np_f() >> 1) & ~FILE_H), (board.pm_np_f() & RANK_3), lenpassant);
+            moves.push_front(lenpassant);
         }
     }
 }
 
-void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64 woccupied) {
+void black_pawn_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 woccupied) {
     U64 single_push = board.bpawns() >> 8 & ~occupied;
     U64 double_push = (single_push >> 8) & RANK_5 & ~occupied;
     while (single_push) {
@@ -440,7 +453,7 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
-            moves.push_back(do_attack(dest << 9, dest, black_pawn, board));
+            moves.push_front(do_attack(dest << 9, dest, black_pawn, board));
         }
         left_attack ^= dest;
     }
@@ -460,13 +473,13 @@ void black_pawn_moves(Board& board, std::vector<Board>& moves, U64 occupied, U64
             moves.push_back(queen_promo);
             moves.push_back(knight_promo);
         } else {
-            moves.push_back(do_attack(dest << 7, dest, black_pawn, board));
+            moves.push_front(do_attack(dest << 7, dest, black_pawn, board));
         }
         right_attack ^= dest;
     }
 }
 
-std::vector<Board> Board::generate_bmoves() {
+std::deque<Board> Board::generate_bmoves() {
     // preprocessing
     white_turn();
     U64 woccupied = 0;
@@ -479,8 +492,8 @@ std::vector<Board> Board::generate_bmoves() {
         boccupied |= bitboards[i];
     }
     occupied = boccupied | woccupied;
-    auto moves = std::vector<Board>{};
-    black_special_moves(*this, moves, occupied);
+    auto moves = std::deque<Board>{};
+    black_special_moves(*this, moves, occupied, boccupied);
     black_pawn_moves(*this, moves, occupied, woccupied);
     // knight
     U64 knights = bknights();
@@ -549,4 +562,38 @@ std::vector<Board> Board::generate_bmoves() {
         queens ^= queen;
     }
     return moves;
+}
+
+std::deque<Board> Board::generate_wmoves_no_stalemate() {
+    std::deque<Board> legal_moves;
+    auto possible_moves = generate_wmoves();
+    for (auto move : possible_moves) {
+        bool add = true;
+        auto next_moves = move.generate_bmoves();
+        for (auto i = 0; i < next_moves.size(); ++i) {
+            if (!next_moves[i].wking()) {
+                add = false;
+                break;
+            }
+        }
+        if (add) legal_moves.push_back(move);
+    }
+    return legal_moves;
+}
+
+std::deque<Board> Board::generate_bmoves_no_stalemate() {
+    std::deque<Board> legal_moves;
+    auto possible_moves = generate_bmoves();
+    for (auto move : possible_moves) {
+        bool add = true;
+        auto next_moves = move.generate_wmoves();
+        for (auto i = 0; i < next_moves.size(); ++i) {
+            if (!next_moves[i].bking()) {
+                add = false;
+                break;
+            }
+        }
+        if (add) legal_moves.push_back(move);
+    }
+    return legal_moves;
 }

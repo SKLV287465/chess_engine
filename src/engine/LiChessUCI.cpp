@@ -29,10 +29,12 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 
 	// Parse move list (if any)
 	// other piece promotions to do.
+	int num = 0;
 	while (is >> token)
 	{
 		if (token != "moves")
 		{	
+			++num;
 			char one = token[0];
 			char two = token[1];
 			char three = token[2];
@@ -41,7 +43,7 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 			if (token.size() > 4) {
 				five = token[4];
 			}
-			std::vector<Board> moves;
+			std::deque<Board> moves;
 			// potential error here if board goes out of scope
 			if (board->get_turn()) {
 				moves = board->generate_bmoves();
@@ -60,6 +62,8 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 			}
 		}
 	}
+	moves_made = num;
+	board->update_check();
 	
 	// Reassign search to new boardPtr
 	// initSearch();
@@ -68,17 +72,95 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 void LiChessUCI::search() {
 	// board = std::make_unique<Board>(std::move(board->MCTS_next_move()));
 	auto prev_board = std::move(board);
-	board = std::make_unique<Board>(prev_board->MCTS_next_move());
-	board->update_check();
-	// board->print_board();
-	auto promotion = std::string{};
-	if (board->pm_np_r() == RANK_1 || board->pm_np_r() == RANK_8) {
-		if (prev_board->piece_at_square(board->pm_op_r(), board->pm_op_f()) == 0 || prev_board->piece_at_square(board->pm_op_r(), board->pm_op_f()) == 6) {
-			promotion.push_back('q');
+	// board = std::make_unique<Board>(prev_board->MCTS_next_move());
+	if (moves_made < 4) {
+		switch (moves_made) {
+			case 0:
+				{
+				auto one = 'd';
+				auto two = '2';
+				auto three = 'd';
+				auto four = '4';
+				std::cout << "bestmove " << one << two << three << four << std::endl;
+				auto moves = board->generate_bmoves();
+				for (auto &b : moves) {
+					if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
+						board = std::make_unique<Board>(std::move(b));
+						break;
+					}
+				}
+				break;
+				}
+			case 1:
+				{
+				auto one = 'e';
+				auto two = '7';
+				auto three = 'e';
+				auto four = '6';
+				std::cout << "bestmove " << one << two << three << four << std::endl;
+				auto moves = board->generate_wmoves();
+				for (auto &b : moves) {
+					if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
+						board = std::make_unique<Board>(std::move(b));
+						break;
+					}
+				}
+				break;
+				}
+			case 2:
+				{
+				auto one = 'g';
+				auto two = '1';
+				auto three = 'f';
+				auto four = '3';
+				std::cout << "bestmove " << one << two << three << four << std::endl;
+				auto moves = board->generate_bmoves();
+				for (auto &b : moves) {
+					if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
+						board = std::make_unique<Board>(std::move(b));
+						break;
+					}
+				}
+				break;
+				}
+			case 3:
+				{
+				auto one = 'd';
+				auto two = '7';
+				auto three = 'd';
+				auto four = '5';
+				std::cout << "bestmove " << one << two << three << four << std::endl;
+				auto moves = board->generate_wmoves();
+				for (auto &b : moves) {
+					if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
+						board = std::make_unique<Board>(std::move(b));
+						break;
+					}
+				}
+				break;
+				}
 		}
+
+	} else {
+		board = std::make_unique<Board>(prev_board->negamax_next_move(wpieces, bpieces));
+		auto promotion = std::string{};
+		if (board->pm_np_r() == RANK_1 || board->pm_np_r() == RANK_8) {
+			if (prev_board->piece_at_square(board->pm_op_r(), board->pm_op_f()) == 0 || prev_board->piece_at_square(board->pm_op_r(), board->pm_op_f()) == 6) {
+				promotion.push_back('q');
+			}
+		}
+		
+		std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r())  << promotion << std::endl;
 	}
-	
-	std::cout << "bestmove " << FILENTC.at(board->pm_op_f()) << RANKNTC.at(board->pm_op_r()) << FILENTC.at(board->pm_np_f()) << RANKNTC.at(board->pm_np_r())  << promotion << std::endl;
+	// count how many pieces are left
+	wpieces = 0;
+	bpieces = 0;
+	for (int i = 0; i < 6; ++i) {
+		wpieces += __builtin_popcountll(board->bitboards[i]);
+	}
+	for (int i = 6; i < 12; ++i) {
+		bpieces += __builtin_popcountll(board->bitboards[i]);
+	}
 }
 
 void LiChessUCI::loop()

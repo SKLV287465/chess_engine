@@ -38,7 +38,6 @@ add_compile_options(
   -Wold-style-cast
   -Wzero-as-null-pointer-constant
   -Wsuggest-override
-  -fstack-protector-strong
   -O3
 )
 
@@ -63,6 +62,7 @@ set(CMAKE_CXX_EXE_LINKER_FLAGS_RELWITHDEBINFO_INIT "-fsanitize=address,undefined
 
 # make sure english.txt is with the build files
 # configure_file(src/english.txt english.txt COPYONLY)
+
 
 # adding word_ladder library
 # add_library(word_ladder src/word_ladder.cpp)
