@@ -54,12 +54,12 @@ inline Board do_attack(U64 origin, U64 dest, int piece_type, Board& old_board) {
 
 inline bool wlcastle(Board& board, U64 woccupied) {
     if (board.wking_in_check() || !board.can_wlcastle() || woccupied & RANK_1 & (FILE_B | FILE_C | FILE_D)) return false;
-    return true;
+    return board.piece_at_square(RANK_1, FILE_A) == white_rook;
 }
 
 inline bool wrcastle(Board& board, U64 woccupied) {
     if (board.wking_in_check() || !board.can_wrcastle() || woccupied & RANK_1 & (FILE_F | FILE_G)) return false;
-    return true;
+    return board.piece_at_square(RANK_1, FILE_H) == white_rook;
 }
 
 void white_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 woccupied) {
@@ -81,7 +81,7 @@ void white_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U
     // implement en passant
     if (board.pm_op_r() == RANK_7 && board.pm_np_r() == RANK_5) {
         // right attack
-        if (board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_H) {
+        if (board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_A) {
             auto renpassant = board;
             renpassant.bitboards[0] ^= ((board.wpawns() & RANK_5 & (board.pm_np_f() << 1) & ~FILE_H) | (board.pm_np_f() & RANK_6));
             renpassant.bitboards[6] ^= (board.pm_np_f() & board.pm_np_r());
@@ -89,7 +89,7 @@ void white_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U
             moves.push_front(renpassant);
         }
         // left attack
-        if (board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A) {
+        if (board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_H) {
             auto lenpassant = board;
             lenpassant.bitboards[0] ^= ((board.wpawns() & RANK_5 & (board.pm_np_f() >> 1) & ~FILE_A) | (board.pm_np_f() & RANK_6));
             lenpassant.bitboards[6] ^= (board.pm_np_f() & board.pm_np_r());
@@ -364,12 +364,12 @@ std::deque<Board> Board::generate_wmoves() {
 
 inline bool blcastle(Board& board, U64 occupied) {
     if (board.bking_in_check() || !board.can_blcastle() || occupied & RANK_8 & (FILE_B | FILE_C | FILE_D)) return false;
-    return true;
+    return board.piece_at_square(RANK_8, FILE_A) == black_rook;
 }
 
 inline bool brcastle(Board& board, U64 occupied) {
     if (board.bking_in_check() || !board.can_brcastle() || occupied & RANK_8 & (FILE_F | FILE_G)) return false;
-    return true;
+    return board.piece_at_square(RANK_8, FILE_H) == black_rook;
 }
 
 void black_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied) {
@@ -565,35 +565,46 @@ std::deque<Board> Board::generate_bmoves() {
 }
 
 std::deque<Board> Board::generate_wmoves_no_stalemate() {
-    std::deque<Board> legal_moves;
-    auto possible_moves = generate_wmoves();
-    for (auto move : possible_moves) {
-        bool add = true;
-        auto next_moves = move.generate_bmoves();
-        for (auto i = 0; i < next_moves.size(); ++i) {
-            if (!next_moves[i].wking()) {
-                add = false;
-                break;
-            }
-        }
-        if (add) legal_moves.push_back(move);
-    }
-    return legal_moves;
+    // std::deque<Board> legal_moves;
+    // auto possible_moves = generate_wmoves();
+    // for (auto &move : possible_moves) {
+    //     bool add = true;
+    //     auto next_moves = move.generate_bmoves();
+    //     for (auto i = 0; i < next_moves.size(); ++i) {
+    //         if (!next_moves[i].wking()) {
+    //             add = false;
+    //             break;
+    //         }
+    //     }
+    //     if (add) {
+    //         move.black_turn();
+    //         legal_moves.push_back(move);
+    //     }
+    // }
+    // return legal_moves;
+
+    return generate_wmoves();
 }
 
 std::deque<Board> Board::generate_bmoves_no_stalemate() {
-    std::deque<Board> legal_moves;
-    auto possible_moves = generate_bmoves();
-    for (auto move : possible_moves) {
-        bool add = true;
-        auto next_moves = move.generate_wmoves();
-        for (auto i = 0; i < next_moves.size(); ++i) {
-            if (!next_moves[i].bking()) {
-                add = false;
-                break;
-            }
-        }
-        if (add) legal_moves.push_back(move);
-    }
-    return legal_moves;
+    // std::deque<Board> legal_moves;
+    // auto possible_moves = generate_bmoves();
+    // for (auto &move : possible_moves) {
+    //     bool add = true;
+    //     auto next_moves = move.generate_wmoves();
+    //     for (auto i = 0; i < next_moves.size(); ++i) {
+    //         if (!next_moves[i].bking()) {
+    //             add = false;
+    //             break;
+    //         }
+    //     }
+        
+    //     if (add) {
+    //         move.white_turn();
+    //         legal_moves.push_back(move);
+    //     }
+    // }
+    // return legal_moves;
+
+    return generate_bmoves();
 }

@@ -9,10 +9,11 @@
 #include "algorithms.hpp"
 #include <memory>
 double algorithms::negamax(Board& board, double alpha, double beta, int depth, int wpieces, int bpieces) {
-    if (depth == 0) return board.evaluate_advantage(board); // or game is over
+    if (depth == 0) return board.evaluate_advantage(board, wpieces, bpieces); // or game is over
     double max = -std::numeric_limits<double>::infinity();
     if (board.get_turn()) {
         if (!board.bking()) return -std::numeric_limits<double>::infinity();
+        if (!board.wking()) return std::numeric_limits<double>::infinity();
         std::deque<Board> possible_moves;
         if (wpieces < 6) {
             possible_moves = board.generate_bmoves_no_stalemate();
@@ -31,6 +32,7 @@ double algorithms::negamax(Board& board, double alpha, double beta, int depth, i
         }
     } else {
         if (!board.wking()) return -std::numeric_limits<double>::infinity();
+        if (!board.bking()) return std::numeric_limits<double>::infinity();
         std::deque<Board> possible_moves;
         if (bpieces < 6) {
             possible_moves = board.generate_wmoves_no_stalemate();

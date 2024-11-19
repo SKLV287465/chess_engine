@@ -50,13 +50,12 @@ void LiChessUCI::updatePosition(std::istringstream& is)
 			} else {
 				moves = board->generate_wmoves();
 			}
-			std::cout << one << two << three << four << std::endl;
+			// std::cout << one << two << three << four << std::endl;
 			for (auto &b : moves) {
 				// std::cout << one << two << three << four << " " << FILENTC.at(b.pm_op_f()) << RANKNTC.at(b.pm_op_r()) << FILENTC.at(b.pm_np_f()) << RANKNTC.at(b.pm_np_r()) << " " << board->get_turn() << std::endl;
 				// std::cout << (FILENTC.at(b.pm_op_f()) == one) << (RANKNTC.at(b.pm_op_r()) == two) << (FILENTC.at(b.pm_np_f()) == three) << (RANKNTC.at(b.pm_np_r()) == four) << std::endl;
 				if (FILENTC.at(b.pm_op_f()) == one && RANKNTC.at(b.pm_op_r()) == two && FILENTC.at(b.pm_np_f()) == three && RANKNTC.at(b.pm_np_r()) == four) {
 					board = std::make_unique<Board>(std::move(b));
-					board->print_board();
 					break;
 				}
 			}

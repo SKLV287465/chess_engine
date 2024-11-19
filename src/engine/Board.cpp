@@ -51,18 +51,10 @@ Board::Board(std::string fen) {
 Board Board::negamax_next_move(int wpieces, int bpieces) {
     std::deque<Board> moves;
     if (get_turn()) {
-        if (wpieces < 6) {
-            moves = generate_bmoves_no_stalemate();
-        } else {
-            moves = generate_bmoves();
-        }
+        moves = generate_bmoves_no_stalemate();
         
     } else {
-        if (bpieces < 6) {
-            moves = generate_wmoves_no_stalemate();
-        } else {
-            moves = generate_wmoves();
-        }
+        moves = generate_wmoves_no_stalemate();
     }
     double max_score = -std::numeric_limits<double>::infinity();
     int index = 0;

@@ -128,7 +128,7 @@ class Board {
     // friend void white_pawn_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied);
     // friend void black_special_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 boccupied);
     // friend void black_pawn_moves(Board& board, std::deque<Board>& moves, U64 occupied, U64 woccupied);
-    double evaluate_advantage(Board& board);
+    double evaluate_advantage(Board& board, int wpieces, int bpieces);
     /**
      * bitboard representation of the chessboard
      * 0 - white pawns
