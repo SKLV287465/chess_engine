@@ -58,13 +58,18 @@ Board Board::negamax_next_move(int wpieces, int bpieces) {
     }
     double max_score = -std::numeric_limits<double>::infinity();
     int index = 0;
+    auto scores = std::vector<int>{};
+    scores.reserve(moves.size());
     #pragma omp parallel for
     for (size_t i = 0; i < moves.size(); ++i) {
         double score = -algorithms::negamax(moves[i], -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), NEGAMAX_DEPTH, wpieces, bpieces);
-        #pragma omp critical
-        if (score > max_score) {
+        scores[i] = score;
+    }
+
+    for (auto i = 0; i < scores.size(); ++i) {
+        if (scores[i] > max_score) {
+            max_score = scores[i];
             index = i;
-            max_score = score;
         }
     }
     std::cout << max_score << std::endl;
