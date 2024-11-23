@@ -1,3 +1,4 @@
+% !TEX root = relative/or/absolute/path/to/root/file.tex
 \documentclass[twoside]{report}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -13,18 +14,21 @@
 \maketitle
 \chapter*{Abstract}
 
-- background of chess
-- background of me
-- Explaining the thought processes behind the decisions that I have made whilst creating this chess engines
-- explaining how the various algorithms that go into making a chess engine function, the logic behind them and etc
-- explaining how the chess engine could be improved.
+Chess is a simple game that is played on a 8x8 grid board, with 6 different types of pieces that each move differently. Intuitively it is a simple game. However due to the permutational complexity of this game, a large number of humans have dedicated their lives to chess and yet chess remains 'unsolved'. Chess remains a highly theoretical board game where it remains subjective in many cases as to which move is the best.
+\\\\
+By the late 1980s computer chess programs had begun being competitive with top human players and 25 years later, the last known win against a top-performing computer by a human player was recorded in the Ponomariov vs Fritz game.
+\\\\
+Since then, as hardware and chess algorithmic theory have had noticeable improvements, the delta between human chess and computer chess programs have only increased.
+\\\\
+
+For the COMP4121 major project, I have chosen to make a chess engine from scratch. Coming from a pure computer science background with limited mathematical knowledge, I believe that the creation of a chess engine would allow me to actively learn about both the deterministic and randomised algorithms that allow chess engines to overcome the human brain. Hence I came up with the goal of creating a chess engine that would be able to beat the average human player.
 
 \tableofcontents
 \include{ch1-board_representation}
-\include{ch2-move_generation}
-\include{ch3-move_evaluation}
-\include{ch4-mcts}
-\include{ch5-min_max}
-\include{ch6-improvements}
+% \include{ch2-move_generation}
+% \include{ch3-move_evaluation}
+% \include{ch4-mcts}
+% \include{ch5-min_max}
+% \include{ch6-improvements}
 
 \end{document}
