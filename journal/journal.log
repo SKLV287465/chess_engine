@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  20 NOV 2024 20:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  24 NOV 2024 22:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -133,23 +133,23 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count278
 \l__pdf_internal_box=\box53
-) (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux))
+) (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
 \openout1 = `journal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
  (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count279
@@ -205,7 +205,32 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 [1
 
-{/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}] [2
+{/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+
+ []
+
+[2
 
 ] (./journal.toc)
 \tf@toc=\write3
@@ -216,40 +241,118 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ]
 \openout2 = `ch1-board_representation.aux'.
 
- (./ch1-board_representation.tex)
+ (./ch1-board_representation.tex
+Chapter 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--11
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4
+
+
+]
+<images/sc1.png, id=22, 277.035pt x 308.15125pt>
+File: images/sc1.png Graphic file (type png)
+<use images/sc1.png>
+Package pdftex.def Info: images/sc1.png  used on input line 14.
+(pdftex.def)             Requested size: 344.005pt x 382.64432pt.
+) [5] [6 <./images/sc1.png>]
 \openout2 = `ch2-move_generation.aux'.
 
- (./ch2-move_generation.tex)
+ (./ch2-move_generation.tex
+Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--6
+
+ []
+
+[7
+
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 13--15
+
+ []
+
+) [8] [9]
 \openout2 = `ch3-move_evaluation.aux'.
 
- (./ch3-move_evaluation.tex)
+ (./ch3-move_evaluation.tex
+Chapter 3.
+
+Overfull \hbox (18.73749pt too wide) detected at line 7
+[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 wp \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 100 + \OML/cmm/m/it/10 wn \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 300 + \OML/cmm/m/it/10 wb \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 325 + \OML/cmm/m/it/10 wr \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 500 + \OML/cmm/m/it/10 wq \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 900[]  \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 bp \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 100 + \OML/cmm/m/it/10 bn \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 300 + \OML/cmm/m/it/10 bb \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 325 + \OML/cmm/m/it/10 br \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 500 + \OML/cmm/m/it/10 bq \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 900)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+[10
+
+
+
+
+])
+Underfull \hbox (badness 10000) in paragraph at lines 11--33
+
+ []
+
+[11]
 \openout2 = `ch4-mcts.aux'.
 
- (./ch4-mcts.tex)
+ (./ch4-mcts.tex
+Chapter 4.
+) [12
+
+
+
+
+]
 \openout2 = `ch5-min_max.aux'.
 
  (./ch5-min_max.tex)
 \openout2 = `ch6-improvements.aux'.
 
- (./ch6-improvements.tex) (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux))
+ (./ch6-improvements.tex)
+\openout2 = `ch7-known_bugs.aux'.
+
+ (./ch7-known_bugs.tex) (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2761 strings out of 474116
- 45463 string characters out of 5734121
- 1926187 words of memory out of 5000000
- 25081 multiletter control sequences out of 15000+600000
- 562682 words of font info for 52 fonts, out of 8000000 for 9000
+ 2810 strings out of 474116
+ 46633 string characters out of 5734121
+ 1935187 words of memory out of 5000000
+ 25121 multiletter control sequences out of 15000+600000
+ 565010 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,65p,274b,189s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on journal.pdf (3 pages, 41569 bytes).
+ 57i,6n,65p,1080b,237s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on journal.pdf (12 pages, 201119 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
+ 101 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

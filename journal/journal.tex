@@ -14,21 +14,26 @@
 \maketitle
 \chapter*{Abstract}
 
-Chess is a simple game that is played on a 8x8 grid board, with 6 different types of pieces that each move differently. Intuitively it is a simple game. However due to the permutational complexity of this game, a large number of humans have dedicated their lives to chess and yet chess remains 'unsolved'. Chess remains a highly theoretical board game where it remains subjective in many cases as to which move is the best.
+Chess is a simple game that is played on a $8 \times 8$ grid board, with 6 different types of pieces that each move differently. Intuitively it is a simple game. However due to the permutational complexity of this game, a large number of humans have dedicated their lives to chess and yet chess remains `unsolved'. Chess remains a highly theoretical board game where it remains subjective in many cases as to which move is the best.
 \\\\
 By the late 1980s computer chess programs had begun being competitive with top human players and 25 years later, the last known win against a top-performing computer by a human player was recorded in the Ponomariov vs Fritz game.
 \\\\
 Since then, as hardware and chess algorithmic theory have had noticeable improvements, the delta between human chess and computer chess programs have only increased.
 \\\\
-
 For the COMP4121 major project, I have chosen to make a chess engine from scratch. Coming from a pure computer science background with limited mathematical knowledge, I believe that the creation of a chess engine would allow me to actively learn about both the deterministic and randomised algorithms that allow chess engines to overcome the human brain. Hence I came up with the goal of creating a chess engine that would be able to beat the average human player.
+\\\\
+Initially, I had planned to create a chess engine that primarily utilised the \textit{Monte Carlo Tree Search} algorithm to search for the best moves. However due to time constraints and the inability for me to feasibly tune the \textit{Monte Carlo Tree Search} using either deep learning meant that a \textit{MCTS} chess engine would be significantly less impressive than a more standard chess engine that utilises the \textit{Min-Max Algorithm}.
+\\\\
+The chess bot that I have created is named \textbf{COMP4121bot} and uses a \textit{Universal Chess Interface (UCI)} interface to communicate with the front-end. I have a raspberry pi 3 model b setup that runs the chess engine so that it exists as a bot on \textit{lichess.org} where it is available for play. I will keep it active on the website until 31/12/2024 and highly encourage you to play a game against it. Note that as it is running on lower end hardware, it's performance is significantly lower than if it were to run on my desktop. The following game modes are available for my bot:
+% TODO: create a list of available game modes.
 
 \tableofcontents
 \include{ch1-board_representation}
-% \include{ch2-move_generation}
-% \include{ch3-move_evaluation}
-% \include{ch4-mcts}
-% \include{ch5-min_max}
-% \include{ch6-improvements}
+\include{ch2-move_generation}
+\include{ch3-move_evaluation}
+\include{ch4-mcts}
+\include{ch5-min_max}
+\include{ch6-improvements}
+\include{ch7-known_bugs}
 
 \end{document}

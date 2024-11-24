@@ -1,0 +1,14 @@
+\contentsline {chapter}{\numberline {1}Board Representation}{4}{}%
+\contentsline {section}{\numberline {1.1}Array}{4}{}%
+\contentsline {section}{\numberline {1.2}Bitboards}{5}{}%
+\contentsline {chapter}{\numberline {2}Move Generation}{7}{}%
+\contentsline {section}{\numberline {2.1}Precomputations and Optimisations}{7}{}%
+\contentsline {section}{\numberline {2.2}Special Moves}{7}{}%
+\contentsline {subsection}{\numberline {2.2.1}Castling}{8}{}%
+\contentsline {subsection}{\numberline {2.2.2}En Passant}{8}{}%
+\contentsline {section}{\numberline {2.3}Non-Sliding Moves}{8}{}%
+\contentsline {section}{\numberline {2.4}Sliding Moves}{8}{}%
+\contentsline {chapter}{\numberline {3}Move Evaluation}{10}{}%
+\contentsline {section}{\numberline {3.1}Piece Value}{10}{}%
+\contentsline {section}{\numberline {3.2}Positional Value}{10}{}%
+\contentsline {chapter}{\numberline {4}Monte Carlo Tree Search}{12}{}%
