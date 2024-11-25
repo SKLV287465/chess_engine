@@ -1,14 +1,31 @@
-\contentsline {chapter}{\numberline {1}Board Representation}{4}{}%
-\contentsline {section}{\numberline {1.1}Array}{4}{}%
-\contentsline {section}{\numberline {1.2}Bitboards}{5}{}%
-\contentsline {chapter}{\numberline {2}Move Generation}{7}{}%
-\contentsline {section}{\numberline {2.1}Precomputations and Optimisations}{7}{}%
-\contentsline {section}{\numberline {2.2}Special Moves}{7}{}%
-\contentsline {subsection}{\numberline {2.2.1}Castling}{8}{}%
-\contentsline {subsection}{\numberline {2.2.2}En Passant}{8}{}%
-\contentsline {section}{\numberline {2.3}Non-Sliding Moves}{8}{}%
-\contentsline {section}{\numberline {2.4}Sliding Moves}{8}{}%
-\contentsline {chapter}{\numberline {3}Move Evaluation}{10}{}%
-\contentsline {section}{\numberline {3.1}Piece Value}{10}{}%
-\contentsline {section}{\numberline {3.2}Positional Value}{10}{}%
-\contentsline {chapter}{\numberline {4}Monte Carlo Tree Search}{12}{}%
+\contentsline {chapter}{\numberline {1}Board Representation}{3}{}%
+\contentsline {section}{\numberline {1.1}Array}{3}{}%
+\contentsline {section}{\numberline {1.2}Bitboards}{4}{}%
+\contentsline {chapter}{\numberline {2}Move Generation}{5}{}%
+\contentsline {section}{\numberline {2.1}Precomputations and Optimisations}{5}{}%
+\contentsline {section}{\numberline {2.2}Special Moves}{6}{}%
+\contentsline {subsection}{\numberline {2.2.1}Castling}{6}{}%
+\contentsline {subsection}{\numberline {2.2.2}En Passant}{6}{}%
+\contentsline {section}{\numberline {2.3}Non-Sliding Moves}{6}{}%
+\contentsline {section}{\numberline {2.4}Sliding Moves}{7}{}%
+\contentsline {chapter}{\numberline {3}Move Evaluation}{8}{}%
+\contentsline {section}{\numberline {3.1}Piece Value}{8}{}%
+\contentsline {section}{\numberline {3.2}Positional Value}{8}{}%
+\contentsline {chapter}{\numberline {4}Monte Carlo Tree Search}{10}{}%
+\contentsline {section}{\numberline {4.1}Selection}{10}{}%
+\contentsline {section}{\numberline {4.2}Expansion}{11}{}%
+\contentsline {section}{\numberline {4.3}Simulation}{11}{}%
+\contentsline {section}{\numberline {4.4}Backpropagation}{11}{}%
+\contentsline {section}{\numberline {4.5}Summary}{11}{}%
+\contentsline {chapter}{\numberline {5}Min-Max Algorithm}{13}{}%
+\contentsline {section}{\numberline {5.1}Alpha-Beta Pruning}{13}{}%
+\contentsline {section}{\numberline {5.2}Move Ordering}{14}{}%
+\contentsline {chapter}{\numberline {6}Possible Improvements}{15}{}%
+\contentsline {section}{\numberline {6.1}Quiescence Search}{15}{}%
+\contentsline {section}{\numberline {6.2}Zobrist Hashing}{15}{}%
+\contentsline {section}{\numberline {6.3}Start-Game Database}{16}{}%
+\contentsline {chapter}{\numberline {7}Known Bugs}{17}{}%
+\contentsline {section}{\numberline {7.1}Triple Repetition}{17}{}%
+\contentsline {section}{\numberline {7.2}Stalemate}{17}{}%
+\contentsline {section}{\numberline {7.3}Inevitable Loss Resignation}{17}{}%
+\contentsline {section}{\numberline {7.4}Move Evaluation Double Error}{18}{}%

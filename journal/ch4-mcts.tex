@@ -1,1 +1,25 @@
 \chapter{Monte Carlo Tree Search}
+\textit{MCTS} is a randomised algorithm that uses the \textit{Monte Carlo Method} to search game-trees. Initially developed for creating engins for Go, this algorithm can also be used to create chess engines. However, due to the arguably higher complexity of chess, it is more difficult to create a \textit{MCTS} chess engine, though examples such as AlphaZero and Leela exist to prove that \textit{MCTS} engines are competitive with the more traditional min-max engines. 
+\textit{MCTS} runs in a loop, each iteration involving travelling down the tree. Traditionally, the most travelled branch is chosen by the engine. Each iteration involves the four steps that are outlined below:
+\section{Selection}
+We start from the root of the tree, which regarding chess engines is the current state of the board. In my (unused) implementation of MCTS, I had created a wrapper class named ``MCnode'' which has a aggregation relationship with its parent node and an composition relation with its child nodes. In C++ code this is represented through a optional raw pointer and a list of unique pointers respectively. This allows for a correct tree representation, the root node having no parent (hence the optional) and each node having a list of children which are owned by the parent. Hence if the parent is deleted, due to C++ 20 smart pointers, the children are also deleted.\\\\
+Given this tree, the selection process of a \textit{MCTS} is a process that is repeated until a leaf node (node without any children or in this case a node with an empty children list) is reached. At a particular node, which child will be selected is determined by the \textit{UCT} or Upper Confidence Bound 1 Applied to Trees. This is calculated given the following formula \[\frac{w_i}{n_i} + c\sqrt{\frac{\ln{N_i}}{n_i}}\] where \begin{itemize}
+    \item $w_i$ is the number of wins for the considered child node after $i$ iterations
+    \item $n_i$ is the number of simulations for the considered child node $i$ iterations
+    \item $N_i$ is the number of simulations after the $i^th$ move for the parent of the considered node
+    \item $c$ is the exploration parameter which is a constant and may be tweaked to optimise the behavior of the engine
+\end{itemize}
+This function ensures the following:
+\begin{itemize}
+    \item Undiscovered nodes are always discovered before already discovered nodes as the \textit{UCT} of undiscovered nodes is infinity (divided by zero)
+    \item Nodes when visited multiple times are less likely to be visited again unless the number of wins also increase
+\end{itemize}
+This ensures that undiscovered nodes are visited whilst also ensuring that nodes that often win are visited the most.
+\section{Expansion}
+When a leaf node is selected in the \textit{Selection} process, the expansion process begins. This process involves generating children for the leaf node. In Chess it is usually beneficial to generate all possible moves as the children and after the child nodes are generated one of these child nodes are chosen randomly.
+\section{Simulation}
+In simulation, we use the chosen node in the previous process (\textit{Expansion}) to do a random playout. If the engine's side wins then we increment the $w_i$ for the chosen node. However, due to chess' high branching factor from the large number of moves that can be played, such a purely random playout is usually not a reliable method to determine whether a win or loss can be recorded. Hence I decided to replace this random simulation with a min-max algorithm score computation with a depth of 3. I chose this method as I believed that this would provide a more accurate determination of whether there is an advantage to be gained by pursuing this branch, whilst taking an insignificant amount of computational time, allowing for more iterations to be run every round.
+\section{Backpropagation}
+Backpropagation is the last step of the \textit{MCTS} algorithm. This process involves recursively backtracking and updating the $n_i$ and $w_i$ figures as necessary from the result of the previous step. This can be done by traversing through the parent node until a std::nullopt is reached in my code.
+\section{Summary}
+Despite creating a ``functional'' MCTS algorithm for my chess engine, I ultimately chose not to use the MCTS algorithm for my final project, but instead to keep the code for future extensions. This is as I had lacked the time and resources (gpu) necessary to create a MCTS chess engine strong enough to defeat an average chess player (me) as MCTS chess engines are inevitably more complicated than traditional min-max engines. This is as MCTS engines require strong chess heuristics and detailed tuning preferably through deep learning to optimise the UCT calculation and simulation process.

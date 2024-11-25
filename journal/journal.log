@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  24 NOV 2024 22:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  25 NOV 2024 13:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2023/05/17 v1.4n Standard LaTeX document class
-(/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+(/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count188
 \c@chapter=\count189
@@ -129,40 +129,64 @@ Package: iftex 2022/02/03 v1.0f TeX engine tests
 \Gm@layouthoffset=\dimen158
 \Gm@layoutvoffset=\dimen159
 \Gm@dimlist=\toks25
+) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2022/12/04 v6.7b set line spacing
+) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+ (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+ (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count278
+)) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2023/10/27 v2.16 Sectioning titles
+\ttl@box=\box53
+\beforetitleunit=\skip53
+\aftertitleunit=\skip54
+\ttl@plus=\dimen160
+\ttl@minus=\dimen161
+\ttl@toksa=\toks26
+\titlewidth=\dimen162
+\titlewidthlast=\dimen163
+\titlewidthfirst=\dimen164
 ) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count278
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count279
+\l__pdf_internal_box=\box54
 ) (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
 \openout1 = `journal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
  (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count279
-\scratchdimen=\dimen160
-\scratchbox=\box54
-\nofMPsegments=\count280
-\nofMParguments=\count281
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count282
-\MPscratchDim=\dimen161
-\MPnumerator=\count283
-\makeMPintoPDFobject=\count284
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count280
+\scratchdimen=\dimen165
+\scratchbox=\box55
+\nofMPsegments=\count281
+\nofMParguments=\count282
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count283
+\MPscratchDim=\dimen166
+\MPnumerator=\count284
+\makeMPintoPDFobject=\count285
+\everyMPtoPDFconversion=\toks28
 ) (/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -173,70 +197,70 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
-* paper: <default>
+* paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: twoside 
-* h-part:(L,W,R)=(73.71613pt, 430.00462pt, 110.57425pt)
-* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=430.00462pt
-* \textheight=556.47656pt
-* \oddsidemargin=1.44614pt
-* \evensidemargin=38.30426pt
-* \topmargin=-13.87262pt
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 452.9679pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=452.9679pt
+* \textheight=700.50687pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=121.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=35.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidetrue
-* \@mparswitchtrue
+* \@twosidefalse
+* \@mparswitchfalse
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 [1
 
 {/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 23--35
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 23--35
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 23--35
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 23--35
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 23--35
 
  []
 
-[2
+[1
 
 ] (./journal.toc)
 \tf@toc=\write3
 \openout3 = `journal.toc'.
 
- [3
+ [2
 
 ]
 \openout2 = `ch1-board_representation.aux'.
@@ -258,50 +282,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--11
 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4
+[3
 
 
 ]
-<images/sc1.png, id=22, 277.035pt x 308.15125pt>
+<images/sc1.png, id=20, 277.035pt x 308.15125pt>
 File: images/sc1.png Graphic file (type png)
 <use images/sc1.png>
 Package pdftex.def Info: images/sc1.png  used on input line 14.
-(pdftex.def)             Requested size: 344.005pt x 382.64432pt.
-) [5] [6 <./images/sc1.png>]
+(pdftex.def)             Requested size: 362.37569pt x 403.07922pt.
+) [4 <./images/sc1.png>]
 \openout2 = `ch2-move_generation.aux'.
 
  (./ch2-move_generation.tex
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4--6
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
 
-[7
+[5
 
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 13--15
+Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
  []
 
-) [8] [9]
+) [6] [7]
 \openout2 = `ch3-move_evaluation.aux'.
 
  (./ch3-move_evaluation.tex
 Chapter 3.
 
-Overfull \hbox (18.73749pt too wide) detected at line 7
-[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 wp \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 100 + \OML/cmm/m/it/10 wn \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 300 + \OML/cmm/m/it/10 wb \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 325 + \OML/cmm/m/it/10 wr \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 500 + \OML/cmm/m/it/10 wq \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 900[]  \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 bp \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 100 + \OML/cmm/m/it/10 bn \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 300 + \OML/cmm/m/it/10 bb \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 325 + \OML/cmm/m/it/10 br \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 500 + \OML/cmm/m/it/10 bq \OMS/cmsy/m/n/10 ^^A \OT1/cmr/m/n/10 900)
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+
+ []
+
+[8
+
+
+
+
+])
+Underfull \hbox (badness 10000) in paragraph at lines 14--39
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
+Overfull \hbox (44.91663pt too wide) in paragraph at lines 14--39
+\OT1/cmr/m/n/12 go to Ro-main Gous-sault's Deepov Chess En-gine: \OT1/cmr/m/it/12 https://github.com/RomainGoussault/Deepov.git 
+ []
+
+[9]
+\openout2 = `ch4-mcts.aux'.
+
+ (./ch4-mcts.tex
+Chapter 4.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
@@ -310,49 +351,70 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
 
 
-])
-Underfull \hbox (badness 10000) in paragraph at lines 11--33
+{/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]) [11] [12]
+\openout2 = `ch5-min_max.aux'.
+
+ (./ch5-min_max.tex
+Chapter 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
 
-[11]
-\openout2 = `ch4-mcts.aux'.
 
- (./ch4-mcts.tex
-Chapter 4.
-) [12
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
+ []
 
+[13
 
 
-]
-\openout2 = `ch5-min_max.aux'.
 
- (./ch5-min_max.tex)
+
+]) [14]
 \openout2 = `ch6-improvements.aux'.
 
- (./ch6-improvements.tex)
+ (./ch6-improvements.tex
+Chapter 6.
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--8
+
+ []
+
+[15
+
+
+
+
+]) [16]
 \openout2 = `ch7-known_bugs.aux'.
 
- (./ch7-known_bugs.tex) (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
+ (./ch7-known_bugs.tex
+Chapter 7.
+) [17
+
+
+
+
+] [18] (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2810 strings out of 474116
- 46633 string characters out of 5734121
- 1935187 words of memory out of 5000000
- 25121 multiletter control sequences out of 15000+600000
- 565010 words of font info for 60 fonts, out of 8000000 for 9000
+ 3882 strings out of 474116
+ 63391 string characters out of 5734121
+ 1936187 words of memory out of 5000000
+ 26165 multiletter control sequences out of 15000+600000
+ 565652 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,65p,1080b,237s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on journal.pdf (12 pages, 201119 bytes).
+ 57i,11n,65p,1840b,235s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on journal.pdf (19 pages, 228849 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 135 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

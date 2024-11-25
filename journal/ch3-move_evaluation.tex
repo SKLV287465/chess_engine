@@ -1,10 +1,13 @@
 \chapter{Move Evaluation}
 The move evaluation function is one of the most important aspects of a chess engine as it is what essentially determines the move that is to be selected by the chess engine. With perfect heuristics, the search function loses relevancy as it would be possible to determine the best move/position through the move evaluation alone.
 \section{Piece Value}
-My original move evaluation function began as a simple addition subtraction function that attributed points to each type of piece, multiplied the number of existing pieces by these points and took the sum of these points as the total points for each side. Then the advantage could be calculated through the difference between the sum of each side. \[
-\text{white\_advantage} = wp \cdot 100 + wn \cdot 300 + wb \cdot 325 + wr \cdot 500 + wq \cdot 900 \\
-- (bp \cdot 100 + bn \cdot 300 + bb \cdot 325 + br \cdot 500 + bq \cdot 900)
-\]
+My original move evaluation function began as a simple addition subtraction function that attributed points to each type of piece, multiplied the number of existing pieces by these points and took the sum of these points as the total points for each side. Then the advantage could be calculated through the difference between the sum of each side. \begin{align*}
+    \text{white\_score} &= wp \cdot 100 + wn \cdot 300 + wb \cdot 325 + wr \cdot 500 + wq \cdot 900\\
+    \text{black\_score} &= bp \cdot 100 + bn \cdot 300 + bb \cdot 325 + br \cdot 500 + bq \cdot 900\\
+    \text{white\_advantage} &= \text{white\_score} - \text{black\_score}\\
+    \text{black\_advantage} &= \text{black\_score} -  \text{white\_score}
+\end{align*}
+
 Despite being a rather simple evaluation function, it is possible to create a relatively strong chess engine using such a simple evaluation function. An advantage of this evaluation function is that it is very fast to compute and may allow for more time and potentially deeper searches. Conversly, this approach fails to be effective at the start of the game as simple searchs usually do not allow for nuanced positioning and piece development that may aid the engine later on. A similar issue is faced during the endgame for similar reasons. However it is possible to complement the evaluation function and move generation to avoid these problems. For example a trie database of Grandmaster Chess games could be relied on at the start to allow for the chess engine to play more naturally.
 \section{Positional Value}
 A more complicated and nuanced approach is to consider the value that is to be had from occupying certain positions on the chess board. For example a knight in the centre of the board is arguably more valuable than a knight on the edge or corner of the board as it allows for more options for the knight and furthermore allows the knight to control more squares. Likewise pawns that are closer to being promoted are more valuable than pawns that are far from being promoted as these pawns have to possibility to become the most valuable piece in the game.\\\\

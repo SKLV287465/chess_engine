@@ -1,0 +1,10 @@
+\chapter{Known Bugs}
+Here is a list of known bugs that I have been either unable to fix or reluctant to fix due to their insignificance regarding scope of the project.
+\section{Triple Repetition}
+In the late game, due to the fact that my chess engine does not cache recently made moves, triple repetition stalemates are a regular occurance. This occurs as the chess engine determines that a certain move is the best in a certain game state and as the min-max algorithm is deterministic, in a repetitive board state occurance, the same move will always be chosen by my chess engine.
+\section{Stalemate}
+In the late game, when my chess engine has a sizeable advantage, my chess engine sometimes actively pursues a stalemate where the enemy cannot make a legal move as it computes that this state is equal to a win. This is a product of my pseudo-legal move generation where moves where the king moves into check are also considered, meaning that such a stalemate allows for my engine to anticipate the taking of the enemy king in the move after the stalemate and considers such a state as equivalent to a win.
+\section{Inevitable Loss Resignation}
+When my chess engine is about to be checkmated and is currently in check, it sometimes attempts an illegal move. This is also a product of the pseudo-legal move generation as it believes that all moves are equally bad (-inf) and chooses a random move. Lichess reads such a move as a resignation but I have not fixed this bug as it does not affect the performance of the chess engine as it only resigns in situations where it is inevitably going to lose.
+\section{Move Evaluation Double Error}
+Late into the game, in some games, the evaluation function becomes corrupted and exorbitantly large numbers are attributed to some moves by the evaluation function. I am unaware of why this occurs and have not yet found out. However, it is not a very common occurance and my chess engine remains largely functional.
