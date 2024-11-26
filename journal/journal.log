@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  25 NOV 2024 13:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  26 NOV 2024 14:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,27 +230,27 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 [1
 
 {/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 23--35
+Underfull \hbox (badness 10000) in paragraph at lines 23--37
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--35
+Underfull \hbox (badness 10000) in paragraph at lines 23--37
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--35
+Underfull \hbox (badness 10000) in paragraph at lines 23--37
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--35
+Underfull \hbox (badness 10000) in paragraph at lines 23--37
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--35
+Underfull \hbox (badness 10000) in paragraph at lines 23--37
 
  []
 
@@ -301,6 +301,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+
+ []
+
 [5
 
 
@@ -311,7 +316,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
  []
 
-) [6] [7]
+[6]) [7]
 \openout2 = `ch3-move_evaluation.aux'.
 
  (./ch3-move_evaluation.tex
@@ -327,12 +332,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
 
 ])
-Underfull \hbox (badness 10000) in paragraph at lines 14--39
+Underfull \hbox (badness 10000) in paragraph at lines 14--41
 
  []
 
 
-Overfull \hbox (44.91663pt too wide) in paragraph at lines 14--39
+Overfull \hbox (44.91663pt too wide) in paragraph at lines 14--41
 \OT1/cmr/m/n/12 go to Ro-main Gous-sault's Deepov Chess En-gine: \OT1/cmr/m/it/12 https://github.com/RomainGoussault/Deepov.git 
  []
 
@@ -409,9 +414,9 @@ Here is how much of TeX's memory you used:
  26165 multiletter control sequences out of 15000+600000
  565652 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,1840b,235s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,1906b,235s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on journal.pdf (19 pages, 228849 bytes).
+Output written on journal.pdf (19 pages, 230544 bytes).
 PDF statistics:
  135 PDF objects out of 1000 (max. 8388607)
  85 compressed objects within 1 object stream
