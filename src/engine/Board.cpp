@@ -71,7 +71,6 @@ Board Board::negamax_next_move(int wpieces, int bpieces) {
             index = i;
         }
     }
-    std::cout << max_score << std::endl;
     return moves[index];
 }
 

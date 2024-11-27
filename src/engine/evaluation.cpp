@@ -40,7 +40,7 @@ double Board::evaluate_advantage(Board& board, int wpieces, int bpieces) {
                 black_advantage -= piece_values[i];
                 auto positional_advantage = AllPSQT[0][gamestate][i][__builtin_ctzll(location)];
                 black_advantage -= positional_advantage;
-                piece_positions ^= -location;
+                piece_positions ^= location;
             }
         }
         for (int i = 6; i < 12; ++i) {
@@ -50,7 +50,7 @@ double Board::evaluate_advantage(Board& board, int wpieces, int bpieces) {
                 black_advantage += piece_values[i - 6];
                 auto positional_advantage = AllPSQT[1][gamestate][i - 6][__builtin_ctzll(location)];
                 black_advantage += positional_advantage;
-                piece_positions ^= -location;
+                piece_positions ^= location;
             }
         }
         if (wpieces < 5) {
@@ -70,7 +70,7 @@ double Board::evaluate_advantage(Board& board, int wpieces, int bpieces) {
                 white_advantage += piece_values[i];
                 auto positional_advantage = AllPSQT[0][gamestate][i][__builtin_ctzll(location)];
                 white_advantage += positional_advantage;
-                piece_positions ^= -location;
+                piece_positions ^= location;
             }
         }
         for (int i = 6; i < 12; ++i) {
@@ -78,9 +78,9 @@ double Board::evaluate_advantage(Board& board, int wpieces, int bpieces) {
             while (piece_positions) {
                 U64 location = piece_positions & -piece_positions;
                 white_advantage -= piece_values[i - 6];
-                auto positional_advantage = AllPSQT[1][gamestate][i][__builtin_ctzll(location)];
+                auto positional_advantage = AllPSQT[1][gamestate][i - 6][__builtin_ctzll(location)];
                 white_advantage -= positional_advantage;
-                piece_positions ^= -location;
+                piece_positions ^= location;
             }
         }
         if (bpieces < 5) {

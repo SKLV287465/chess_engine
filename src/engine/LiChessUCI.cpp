@@ -223,11 +223,6 @@ void LiChessUCI::loop()
 				else if (token == "binc")      is >> binc;
 				else if (token == "movestogo") is >> movestogo;
 			}
-
-			// //http://stackoverflow.com/questions/12624271/c11-stdthread-giving-error-no-matching-function-to-call-stdthreadthread
-			// thrd::thread thr(&Uci::search, this);
-			// thrd::swap(thr, myThread);
-			// myThread.join();
 			search();
 		}
 		else if (token == "quit")

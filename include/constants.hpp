@@ -117,6 +117,6 @@ const std::unordered_map<U64, char> RANKNTC = {
     {RANK_8, '8'}
 };
 
-const int NEGAMAX_DEPTH = 6;
+const int NEGAMAX_DEPTH = 5;
 
 #endif
