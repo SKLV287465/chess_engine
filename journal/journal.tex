@@ -28,11 +28,15 @@ Since then, as hardware and chess algorithmic theory have had noticeable improve
 \\\\
 For the COMP4121 major project, I have chosen to make a chess engine from scratch. Coming from a pure computer science background with limited mathematical knowledge, I believe that the creation of a chess engine would allow me to actively learn about both the deterministic and randomised algorithms that allow chess engines to overcome the human brain. Hence I came up with the goal of creating a chess engine that would be able to beat the average human player.
 \\\\
-Initially, I had planned to create a chess engine that primarily utilised the \textit{Monte Carlo Tree Search} algorithm to search for the best moves. However due to the time constraints and the inability for me to feasibly tune the \textit{Monte Carlo Tree Search} using deep learning meant that a \textit{MCTS} chess engine would be significantly less impressive than a more standard chess engine that utilises the \textit{Min-Max Algorithm}.
-\\\\
-The chess bot that I have created is named \textbf{COMP4121bot} and uses a \textit{Universal Chess Interface (UCI)} interface to communicate with the front-end. I have a Raspberry Pi 3 model B setup that runs the chess engine so that it exists as a bot on \textit{lichess.org} where it is available for play. I will keep it active on the website until 31/12/2024 and highly encourage you to play a game against it. Note that as it is running on lower end hardware, its performance is significantly lower than if it were to run on my desktop. The following game modes are available for my bot:
+Initially, I had planned to create a chess engine that primarily utilised the \textit{Monte Carlo Tree Search} algorithm to search for the best moves. However due to the time constraints and the inability for me to feasibly tune the \textit{Monte Carlo Tree Search} using deep learning meant that a \textit{MCTS} chess engine would be significantly less impressive than a more standard chess engine that utilises the \textit{Min-Max Algorithm}.\newpage
+The chess bot that I have created is named \textbf{COMP4121bot} and uses a \textit{Universal Chess Interface (UCI)} interface to communicate with the front-end. I have a Raspberry Pi 3 model B setup that runs the chess engine so that it exists as a bot on \textit{lichess.org} where it is available for play. I will keep it active on the website until 31/12/2024 and highly encourage you to play a game against it. Note that as it is running on lower end hardware, its performance is significantly lower than if it were to run on my desktop. The following game setup works but others may / may not be accepted by my bot:\\
+Variant: Standard\\
+Time Control: Real time\\
+Minutes per side: 10\\
+Increment in seconds: 3\\
+Game Mode: Casual\\\\
 % TODO: create a list of available game modes.
-\\ Play on this link (you may need to create an account):\\
+Play on this link (you may need to create an account):\\
 https://lichess.org/@/COMP4121bot
 
 \tableofcontents

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  26 NOV 2024 14:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Homebrew) (preloaded format=pdflatex 2024.10.30)  28 NOV 2024 11:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,37 +230,37 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 [1
 
 {/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 23--37
+Underfull \hbox (badness 10000) in paragraph at lines 23--31
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--37
+Underfull \hbox (badness 10000) in paragraph at lines 23--31
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--37
+Underfull \hbox (badness 10000) in paragraph at lines 23--31
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--37
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--37
+Underfull \hbox (badness 10000) in paragraph at lines 23--31
 
  []
 
 [1
 
-] (./journal.toc)
+]
+Underfull \hbox (badness 10000) in paragraph at lines 32--41
+
+ []
+
+[2] (./journal.toc)
 \tf@toc=\write3
 \openout3 = `journal.toc'.
 
- [2
+ [3
 
 ]
 \openout2 = `ch1-board_representation.aux'.
@@ -282,16 +282,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--11
 
  []
 
-[3
+[4
 
 
 ]
-<images/sc1.png, id=20, 277.035pt x 308.15125pt>
+<images/sc1.png, id=23, 277.035pt x 308.15125pt>
 File: images/sc1.png Graphic file (type png)
 <use images/sc1.png>
 Package pdftex.def Info: images/sc1.png  used on input line 14.
 (pdftex.def)             Requested size: 362.37569pt x 403.07922pt.
-) [4 <./images/sc1.png>]
+) [5 <./images/sc1.png>]
 \openout2 = `ch2-move_generation.aux'.
 
  (./ch2-move_generation.tex
@@ -306,7 +306,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
 
-[5
+[6
 
 
 
@@ -316,7 +316,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
  []
 
-[6]) [7]
+[7]) [8]
 \openout2 = `ch3-move_evaluation.aux'.
 
  (./ch3-move_evaluation.tex
@@ -326,22 +326,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
-[8
+[9
 
 
 
 
 ])
-Underfull \hbox (badness 10000) in paragraph at lines 14--41
+Underfull \hbox (badness 10000) in paragraph at lines 14--45
 
  []
 
 
-Overfull \hbox (44.91663pt too wide) in paragraph at lines 14--41
+Overfull \hbox (44.91663pt too wide) in paragraph at lines 14--45
 \OT1/cmr/m/n/12 go to Ro-main Gous-sault's Deepov Chess En-gine: \OT1/cmr/m/it/12 https://github.com/RomainGoussault/Deepov.git 
  []
 
-[9]
+[10]
 \openout2 = `ch4-mcts.aux'.
 
  (./ch4-mcts.tex
@@ -351,12 +351,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
-[10
+[11
 
 
 
 
-{/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]) [11] [12]
+{/usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]) [12] [13]
 \openout2 = `ch5-min_max.aux'.
 
  (./ch5-min_max.tex
@@ -371,12 +371,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--7
 
  []
 
-[13
+[14
 
 
 
 
-]) [14]
+]) [15]
 \openout2 = `ch6-improvements.aux'.
 
  (./ch6-improvements.tex
@@ -386,22 +386,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 6--8
 
  []
 
-[15
+[16
 
 
 
 
-]) [16]
+]) [17]
 \openout2 = `ch7-known_bugs.aux'.
 
  (./ch7-known_bugs.tex
 Chapter 7.
-) [17
+) [18
 
 
 
 
-] [18] (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
+] [19] (./journal.aux (./ch1-board_representation.aux) (./ch2-move_generation.aux) (./ch3-move_evaluation.aux) (./ch4-mcts.aux) (./ch5-min_max.aux) (./ch6-improvements.aux) (./ch7-known_bugs.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -416,10 +416,10 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  57i,11n,65p,1906b,235s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/Cellar/texlive/20240312_3/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on journal.pdf (19 pages, 230544 bytes).
+Output written on journal.pdf (20 pages, 230819 bytes).
 PDF statistics:
- 135 PDF objects out of 1000 (max. 8388607)
- 85 compressed objects within 1 object stream
+ 138 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
